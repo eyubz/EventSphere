@@ -5,14 +5,13 @@ const bodyParser = require("body-parser");
 require("dotenv").config();
 const PORT = process.env.PORT;
 
+const auth_route = require("./Routes/auth_route");
+
 const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
-
-app.get("/", (req, res) => {
-  res.status(200).send("Hello World");
-});
+app.use(auth_route);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
