@@ -1,3 +1,4 @@
+const bcrypt = require("bcryptjs");
 class password {
   constructor(password) {
     if (!password) {
@@ -13,6 +14,14 @@ class password {
   ValidatePassword(password) {
     const re = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return re.test(password);
+  }
+
+  HashPassword() {
+    return bcrypt.hash(this.password, 10);
+  }
+
+  ComparePassword(hashedPassword) {
+    return bcrypt.compare(this.password, hashedPassword);
   }
 }
 
