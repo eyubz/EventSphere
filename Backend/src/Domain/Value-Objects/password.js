@@ -1,14 +1,14 @@
 const bcrypt = require("bcryptjs");
-class password {
+class Password {
   constructor(password) {
     if (!password) {
       throw new Error("Password is required.");
     }
-    // if (!this.ValidatePassword(password)) {
-    //   throw new Error(
-    //     "Password must contain at least 8 characters, including one letter, one number and one special character."
-    //   );
-    // }
+    if (!this.ValidatePassword(password)) {
+      throw new Error(
+        "Password must contain at least 8 characters, including one letter, one number and one special character."
+      );
+    }
     this.password = password;
   }
   ValidatePassword(password) {
@@ -25,4 +25,4 @@ class password {
   }
 }
 
-module.exports = password;
+module.exports = Password;

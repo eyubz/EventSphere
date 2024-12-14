@@ -3,10 +3,27 @@ class UserRepository {
     this.userModel = userModel;
   }
 
-  FindUserByEMail = async (email) => {
+  FindUserByEmail = async (email) => {
     try {
       const user = await this.userModel.findOne({ email });
       return user;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  DeleteUser = async (email) => {
+    try {
+      await this.userModel.delete({ email });
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  SignUp = async (user) => {
+    try {
+      const newUser = new this.userModel(user);
+      await newUser.save();
     } catch (error) {
       throw error;
     }

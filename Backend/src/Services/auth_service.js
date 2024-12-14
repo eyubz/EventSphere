@@ -1,9 +1,10 @@
-import User from "../Domain/Entity/user";
+const User = require("../Domain/Entity/user");
 
 class AuthService {
-  constructor(authRepository, verificationService) {
+  constructor(authRepository, verificationService, emailService) {
     this.authRepository = authRepository;
     this.verificationService = verificationService;
+    this.emailService = emailService;
   }
 
   SignUpService = async (name, email, password) => {
@@ -12,8 +13,8 @@ class AuthService {
         throw new Error("Please fill all the fields");
       }
       const newUser = new User(name, email, password);
-
-      const existingUser = await this.authRepository.FindUserByEmail({ email });
+      const existingUser = await this.authRepository.FindUserByEmail(email);
+      console.log("The existing user", existingUser);
       if (existingUser) {
         if (existingUser.isVerified) {
           throw new Error("User already exists. Please Login");
@@ -21,19 +22,15 @@ class AuthService {
         throw new Error("User already exists. Please verify your email");
       }
       const hashedPassword = await newUser.password.HashPassword();
-      newUser.password = hashedPassword;
-
-      const otp = this.verificationService.GenerateOTP();
-      newUser.otp = otp;
-
-      // we need to send an email to the user with the OTP
-
-      const user = await this.authRepository.SignUpRepository(
+      const otp = await this.verificationService.GenerateOTP();
+      this.emailService.SendVerificationEmail(email, otp);
+      await this.authRepository.SignUp({
         name,
         email,
-        password
-      );
-      return user;
+        password: hashedPassword,
+        otp,
+      });
+      return "User created successfully. Please verify your email";
     } catch (error) {
       throw error;
     }

@@ -4,13 +4,13 @@ require("dotenv").config();
 class VerificationService {
   constructor() {}
 
-  GenerateOtp = async () => {
+  GenerateOTP = async () => {
     const toOtp = new OTPAuth.TOTP({
       issuer: "EventSphere",
       label: "bezueyerusalem@gmail.com",
       algorithm: "SHA1",
       digits: 6,
-      period: 600,
+      period: 300,
       secret: process.env.OTP_SECRET,
     });
 

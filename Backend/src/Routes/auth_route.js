@@ -7,10 +7,16 @@ const AuthService = require("../Services/auth_service");
 const AuthRepository = require("../Infrastructure/auth_repository");
 const UserModel = require("../Models/user_model");
 const VerificationService = require("../Services/verification_service");
+const EmailService = require("../Services/email_service");
 
+const emailService = new EmailService();
 const verificationService = new VerificationService();
 const userRepository = new AuthRepository(UserModel);
-const authService = new AuthService(userRepository, verificationService);
+const authService = new AuthService(
+  userRepository,
+  verificationService,
+  emailService
+);
 const authController = new AuthController(authService);
 
 router.post("/signup", authController.SignupController);

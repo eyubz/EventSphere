@@ -14,8 +14,8 @@ class Email {
   }
 
   ValidateEmail(email) {
+    console.log(email);
     const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    console.log(re.test(email), email);
     return re.test(email);
   }
 }

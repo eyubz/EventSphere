@@ -12,6 +12,7 @@ class AuthController {
       );
       res.status(200).json({ message });
     } catch (error) {
+      console.log(error);
       res.status(400).json({ message: error.message });
     }
   };

@@ -1,9 +1,8 @@
-const Email = require("../ValueObject/email");
-const Password = require("../ValueObject/password");
+const Email = require("../Value-Objects/email");
+const Password = require("../Value-Objects/password");
 
 class User {
-  constructor(id, name, email, password) {
-    this.id = id;
+  constructor(name, email, password) {
     this.name = name;
     this.email = new Email(email);
     this.password = new Password(password);
