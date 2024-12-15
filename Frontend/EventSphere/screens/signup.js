@@ -1,12 +1,47 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { useForm, FieldErrors } from "react-hook-form";
+
+const schema = yup.object({
+  name: yup.string().required("Full name is required."),
+  email: yup
+    .string()
+    .required("Email is required.")
+    .email("Invalid email format."),
+  password: yup
+    .string()
+    .required("Password is required.")
+    .min(8, "Password must be at least 8 characters.")
+    .matches(
+      /(?=.*[A-Z])/,
+      "Password must contain at least one uppercase letter."
+    )
+    .matches(
+      /(?=.*[a-z])/,
+      "Password must contain at least one lowercase letter."
+    )
+    .matches(/(?=.*[0-9])/, "Password must contain at least one number.")
+    .matches(
+      /(?=.*[@$!%*?&])/,
+      "Password must contain at least one special character."
+    ),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), undefined], "Passwords must match.")
+    .required("Please confirm your password."),
+});
 
 const Signup = ({ navigation }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
+    useState(false);
 
   const handleSignup = () => {
     console.log({ name, email, password, confirmPassword });
@@ -52,20 +87,42 @@ const Signup = ({ navigation }) => {
         <TextInput
           className="flex-1 py-2 text-base"
           placeholder="Password"
-          secureTextEntry
+          secureTextEntry={!isPasswordVisible}
           value={password}
           onChangeText={setPassword}
         />
+
+        <TouchableOpacity
+          onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+          className="ml-2"
+        >
+          <Icon
+            name={isPasswordVisible ? "eye" : "eye-off"}
+            size={22}
+            color="#7F57C4"
+          />
+        </TouchableOpacity>
       </View>
       <View className="flex-row items-center border gap-2 border-gray-300 rounded-xl px-3 p-1 mb-4">
         <Icon name="lock-closed" size={22} color="#7F57C4" />
         <TextInput
           className="flex-1 py-2 text-base"
           placeholder="Confirm Password"
-          secureTextEntry
+          secureTextEntry={!isConfirmPasswordVisible}
           value={confirmPassword}
           onChangeText={setConfirmPassword}
         />
+
+        <TouchableOpacity
+          onPress={() => setIsConfirmPasswordVisible(!isConfirmPasswordVisible)}
+          className="ml-2"
+        >
+          <Icon
+            name={isConfirmPasswordVisible ? "eye" : "eye-off"}
+            size={22}
+            color="#7F57C4"
+          />
+        </TouchableOpacity>
       </View>
       <TouchableOpacity
         onPress={handleSignup}
