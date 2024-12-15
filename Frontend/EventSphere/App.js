@@ -10,11 +10,11 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        screenOptions={{
-          headerStyle: { backgroundColor: "#7F57C4" },
-          headerTintColor: "#fff",
-          headerTitleStyle: { fontWeight: "bold" },
-        }}
+      // screenOptions={{
+      //   headerStyle: { backgroundColor: "#7F57C4" },
+      //   headerTintColor: "#fff",
+      //   headerTitleStyle: { fontWeight: "bold" },
+      // }}
       >
         <Stack.Screen
           name="Welcome to EventSphere"
@@ -27,7 +27,13 @@ export default function App() {
           }}
         />
 
-        <Stack.Screen name="Signup" component={Signup} />
+        <Stack.Screen
+          name="Signup"
+          component={Signup}
+          options={{
+            headerShown: false,
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

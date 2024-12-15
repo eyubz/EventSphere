@@ -77,7 +77,7 @@ const Onboarding = () => {
           <Text
             className={`text-primaryPurple font-bold text-lg ${
               currentIndex === slides.length - 1
-                ? "bg-primaryPurple p-3 text-white text-2xl rounded-lg"
+                ? "bg-primaryPurple p-4 text-white text-2xl rounded-lg"
                 : ""
             }`}
           >
