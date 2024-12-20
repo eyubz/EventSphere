@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Onboarding from "./screens/onboarding";
 import Signup from "./screens/signup";
 import Header from "./components/header";
+import Login from "./screens/login";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -16,7 +17,7 @@ export default function App() {
       //   headerTitleStyle: { fontWeight: "bold" },
       // }}
       >
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Welcome to EventSphere"
           component={Onboarding}
           options={{
@@ -25,11 +26,18 @@ export default function App() {
               backgroundColor: "#7F57C4",
             },
           }}
-        />
+        /> */}
 
         <Stack.Screen
           name="Signup"
           component={Signup}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Login"
+          component={Login}
           options={{
             headerShown: false,
           }}
