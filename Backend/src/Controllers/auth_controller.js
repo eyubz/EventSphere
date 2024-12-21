@@ -3,12 +3,13 @@ class AuthController {
     this.authService = authService;
   }
   SignupController = async (req, res) => {
-    const { name, email, password } = req.body;
+    const { name, email, password, isOrganizer } = req.body;
     try {
       const message = await this.authService.SignUpService(
         name,
         email,
-        password
+        password,
+        isOrganizer
       );
       res.status(200).json({ message });
     } catch (error) {

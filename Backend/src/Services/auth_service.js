@@ -7,14 +7,13 @@ class AuthService {
     this.emailService = emailService;
   }
 
-  SignUpService = async (name, email, password) => {
+  SignUpService = async (name, email, password, isOrganizer) => {
     try {
       if (!name || !email || !password) {
         throw new Error("Please fill all the fields");
       }
-      const newUser = new User(name, email, password);
+      const newUser = new User(name, email, password, isOrganizer);
       const existingUser = await this.authRepository.FindUserByEmail(email);
-      console.log("The existing user", existingUser);
       if (existingUser) {
         if (existingUser.isVerified) {
           throw new Error("User already exists. Please Login");
@@ -28,6 +27,7 @@ class AuthService {
         name,
         email,
         password: hashedPassword,
+        isOrganizer,
         otp,
       });
       return "User created successfully. Please verify your email";

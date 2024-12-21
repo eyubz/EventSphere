@@ -32,6 +32,10 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    isOrganizer: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );
