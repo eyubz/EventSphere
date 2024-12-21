@@ -5,19 +5,22 @@ import Onboarding from "./screens/onboarding";
 import Signup from "./screens/signup";
 import Header from "./components/header";
 import Login from "./screens/login";
+import store from "./redux/store";
+import { Provider } from "react-redux";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-      // screenOptions={{
-      //   headerStyle: { backgroundColor: "#7F57C4" },
-      //   headerTintColor: "#fff",
-      //   headerTitleStyle: { fontWeight: "bold" },
-      // }}
-      >
-        {/* <Stack.Screen
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator
+        // screenOptions={{
+        //   headerStyle: { backgroundColor: "#7F57C4" },
+        //   headerTintColor: "#fff",
+        //   headerTitleStyle: { fontWeight: "bold" },
+        // }}
+        >
+          {/* <Stack.Screen
           name="Welcome to EventSphere"
           component={Onboarding}
           options={{
@@ -28,21 +31,22 @@ export default function App() {
           }}
         /> */}
 
-        <Stack.Screen
-          name="Signup"
-          component={Signup}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="Login"
-          component={Login}
-          options={{
-            headerShown: false,
-          }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+          <Stack.Screen
+            name="Signup"
+            component={Signup}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{
+              headerShown: false,
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }

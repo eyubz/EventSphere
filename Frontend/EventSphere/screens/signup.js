@@ -4,6 +4,8 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm, Controller } from "react-hook-form";
+import { SignUp, resetInitialState } from "../redux/actions/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const schema = yup.object({
   name: yup.string().required("Full name is required."),
@@ -35,6 +37,8 @@ const schema = yup.object({
 });
 
 const Signup = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const { success, error, loading } = useSelector((state) => state.auth);
   const { control, handleSubmit, formState, reset } = useForm({
     resolver: yupResolver(schema),
     mode: "all",
@@ -46,8 +50,16 @@ const Signup = ({ navigation }) => {
     useState(false);
 
   const handleSignup = (data) => {
+    // dispatch(SignUp(data));
+
+    // if (success) {
+    //   dispatch(resetInitialState());
+    //   navigation.navigate("VerifyEmail");
+    // }
+
     console.log(data);
     reset();
+    // navigation.navigate("VerifyEmail");
   };
 
   return (
@@ -82,7 +94,7 @@ const Signup = ({ navigation }) => {
         )}
       />
       {errors.name && (
-        <View className="mb-2 flex left items-start justify-start -ml-56">
+        <View className="mb-2 flex left items-start justify-start -ml-60">
           <Text className="text-red-500">{errors.name.message}</Text>
         </View>
       )}
@@ -137,7 +149,7 @@ const Signup = ({ navigation }) => {
         )}
       />
       {errors.password && (
-        <View className="mb-2 flex left items-start justify-start -ml-56">
+        <View className="mb-2 flex left items-start justify-start -ml-24">
           <Text className="text-red-500">{errors.password.message}</Text>
         </View>
       )}
@@ -195,14 +207,18 @@ const Signup = ({ navigation }) => {
           </View>
         )}
       />
-
+      {error && (
+        <View className="mb-2 flex left items-start justify-start -ml-40">
+          <Text className="text-red-500">{error}</Text>
+        </View>
+      )}
       <TouchableOpacity
         onPress={handleSubmit(handleSignup)}
         className="w-full bg-primaryPurple rounded-xl py-3 mt-3 mb-4"
         disabled={!formState.isValid || formState.isSubmitting}
       >
         <Text className="text-center text-white font-bold text-lg">
-          Sign Up
+          {loading ? "Loading..." : "Sign Up"}
         </Text>
       </TouchableOpacity>
 
