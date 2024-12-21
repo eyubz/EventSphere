@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { set } from "react-hook-form";
 const API_URL = "http://localhost:5000/api/auth" || process.env.API_URL;
 
 export const SignUp = createAsyncThunk(
@@ -18,6 +19,7 @@ const initialState = {
   success: false,
   error: null,
   loading: false,
+  email: null,
 };
 
 const authSlice = createSlice({
@@ -28,6 +30,9 @@ const authSlice = createSlice({
       state.success = false;
       state.error = null;
       state.loading = false;
+    },
+    setEmail: (state, action) => {
+      state.email = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -49,4 +54,4 @@ const authSlice = createSlice({
 });
 
 export default authSlice.reducer;
-export const { resetInitialState } = authSlice.actions;
+export const { resetInitialState, setEmail } = authSlice.actions;

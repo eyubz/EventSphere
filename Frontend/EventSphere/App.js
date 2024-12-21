@@ -5,6 +5,7 @@ import Onboarding from "./screens/onboarding";
 import Signup from "./screens/signup";
 import Header from "./components/header";
 import Login from "./screens/login";
+import Verify from "./screens/verify";
 import store from "./redux/store";
 import { Provider } from "react-redux";
 
@@ -31,9 +32,16 @@ export default function App() {
           }}
         /> */}
 
-          <Stack.Screen
+          {/* <Stack.Screen
             name="Signup"
             component={Signup}
+            options={{
+              headerShown: false,
+            }}
+          /> */}
+          <Stack.Screen
+            name="Verify"
+            component={Verify}
             options={{
               headerShown: false,
             }}
