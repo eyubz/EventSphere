@@ -8,7 +8,7 @@ import {
   SignUp,
   resetInitialState,
   setEmail,
-} from "../redux/actions/authSlice";
+} from "../../redux/actions/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const schema = yup.object({
@@ -75,7 +75,7 @@ const Signup = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <Image
-        source={require("../assets/onboarding/logo.png")}
+        source={require("../../assets/onboarding/logo.png")}
         className="bg-primaryPurple w-20 h-20 rounded-full mb-6 p-2"
       />
       <Text className="text-2xl font-bold text-primaryPurple mb-6">
@@ -233,7 +233,7 @@ const Signup = ({ navigation }) => {
         className="w-full flex-row items-center justify-center border border-gray-300 rounded-xl py-3 mb-6"
       >
         <Image
-          source={require("../assets/onboarding/google.png")}
+          source={require("../../assets/onboarding/google.png")}
           className="w-5 h-5 mr-2"
         />
         <Text className="text-primary shadow-lg font-bold text-lg">

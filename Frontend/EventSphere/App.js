@@ -2,10 +2,10 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Onboarding from "./screens/onboarding";
-import Signup from "./screens/signup";
+import Signup from "./screens/auth/signup";
 import Header from "./components/header";
-import Login from "./screens/login";
-import Verify from "./screens/verify";
+import Login from "./screens/auth/login";
+import Verify from "./screens/auth/verify";
 import store from "./redux/store";
 import { Provider } from "react-redux";
 
@@ -39,13 +39,13 @@ export default function App() {
               headerShown: false,
             }}
           /> */}
-          <Stack.Screen
+          {/* <Stack.Screen
             name="Verify"
             component={Verify}
             options={{
               headerShown: false,
             }}
-          />
+          /> */}
           <Stack.Screen
             name="Login"
             component={Login}

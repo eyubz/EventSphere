@@ -49,7 +49,7 @@ const Verify = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <Image
-        source={require("../assets/onboarding/logo.png")}
+        source={require("../../assets/onboarding/logo.png")}
         className="bg-primaryPurple w-20 h-20 rounded-full mb-6 p-2"
       />
       <Text className="text-2xl font-bold text-primaryPurple mb-6">
