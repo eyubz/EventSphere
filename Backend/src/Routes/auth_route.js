@@ -20,5 +20,6 @@ const authService = new AuthService(
 const authController = new AuthController(authService);
 
 router.post("/signup", authController.SignupController);
+router.post("/verify", authController.VerifyController);
 
 module.exports = router;

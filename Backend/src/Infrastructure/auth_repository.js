@@ -28,6 +28,14 @@ class UserRepository {
       throw error;
     }
   };
+
+  VerifyUser = async (email) => {
+    try {
+      await this.userModel.updateOne({ email }, { isVerified: true });
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 module.exports = UserRepository;

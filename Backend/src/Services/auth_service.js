@@ -35,6 +35,27 @@ class AuthService {
       throw error;
     }
   };
+  VerifyOTP = async (email, otp) => {
+    if (!email || !otp) {
+      throw new Error("Please fill all the fields");
+    }
+    const user = await this.authRepository.FindUserByEmail(email);
+    if (!user) {
+      throw new Error("User not found. Please signup");
+    }
+    if (user.isVerified) {
+      throw new Error("User already verified. Please login");
+    }
+    if (user.otp !== otp) {
+      console.log(user, otp);
+      throw new Error("Invalid OTP");
+    }
+    if (this.verificationService.VerifyOTP(otp)) {
+      await this.authRepository.VerifyUser(email);
+      return "Email verified successfully. Please login";
+    }
+    throw new Error("Invalid OTP. OTP expired");
+  };
 }
 
 module.exports = AuthService;
