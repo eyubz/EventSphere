@@ -1,13 +1,24 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { set } from "react-hook-form";
-const API_URL = "http://localhost:5000/api/auth" || process.env.API_URL;
+const API_URL = "http://localhost:5000/api" || process.env.API_URL;
 
 export const SignUp = createAsyncThunk(
   "auth/signup",
   async (data, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${API_URL}/signup`, data);
+      const response = await axios.post(`${API_URL}/auth/signup`, data);
+      return response.data;
+    } catch {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
+export const VerifyEmail = createAsyncThunk(
+  "auth/verify",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(`${API_URL}/auth/verify`, data);
       return response.data;
     } catch {
       return rejectWithValue(error.response.data.message);
@@ -46,6 +57,20 @@ const authSlice = createSlice({
       state.error = null;
     });
     builder.addCase(SignUp.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+      state.success = false;
+    });
+    builder.addCase(VerifyEmail.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(VerifyEmail.fulfilled, (state, action) => {
+      state.loading = false;
+      state.success = true;
+      state.error = null;
+    });
+    builder.addCase(VerifyEmail.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
       state.success = false;

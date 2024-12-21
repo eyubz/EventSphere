@@ -1,17 +1,13 @@
+import React from "react";
 import { useState, useRef } from "react";
-import {
-  Button,
-  Text,
-  View,
-  TouchableOpacity,
-  Image,
-  TextInput,
-} from "react-native";
-import { useSelector } from "react-redux";
+import { Text, View, TouchableOpacity, Image, TextInput } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+// import { VerifyEmail, resetInitialState } from "../redux/actions/authSlice";
 
 import Icon from "react-native-vector-icons/Ionicons";
 const Verify = ({ navigation }) => {
-  // const { email } = useSelector((state) => state.auth)
+  const { emai, success, loading, error } = useSelector((state) => state.auth);
+  // const dispatch = useDispatch();
   const email = "example@gmail.com";
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const ref = useRef([]);
@@ -35,6 +31,16 @@ const Verify = ({ navigation }) => {
     }
   };
 
+  const handleVerify = () => {
+    navigation.navigate("Login");
+    // const otpValue = otp.join("");
+    // dispatch(VerifyEmail({ email, otp: otpValue }));
+    // resetInitialState();
+    // if (success) {
+    //   navigation.navigate("Login");
+    // }
+  };
+
   return (
     <View className="flex-1 bg-white items-center px-6 justify-center">
       <View className="absolute top-14 left-6">
@@ -50,7 +56,8 @@ const Verify = ({ navigation }) => {
         Verify Your Email
       </Text>
       <Text className="text-center mb-6">
-        We have sent you a verification email to {email}. Please check your
+        We have sent you a verification email to{" "}
+        <Text className="text-primaryPurple">{email}</Text>. Please check your
         inbox and enter the code sent here.
       </Text>
       <View className="flex-row items-center justify-center gap-4 mb-6">
@@ -74,10 +81,14 @@ const Verify = ({ navigation }) => {
       >
         <Text className="text-primaryPurple">Resend email ?</Text>
       </TouchableOpacity>
-
-      <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-        <Text className="text-white bg-primaryPurple p-4 rounded-xl mt-2">
-          Login
+      {error && (
+        <View className="mb-2 flex left items-start justify-start -ml-40">
+          <Text className="text-red-500">{error}</Text>
+        </View>
+      )}
+      <TouchableOpacity onPress={handleVerify}>
+        <Text className="text-white bg-primaryPurple p-4 rounded-xl mt-2 w-36 text-center">
+          {loading ? "Loading..." : "Login"}
         </Text>
       </TouchableOpacity>
     </View>

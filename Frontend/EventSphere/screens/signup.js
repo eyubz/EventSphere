@@ -59,12 +59,12 @@ const Signup = ({ navigation }) => {
 
     // if (success) {
     //   dispatch(resetInitialState());
-    //   navigation.navigate("VerifyEmail");
+    //   navigation.navigate("Verify");
     // }
 
     console.log(data);
     reset();
-    // navigation.navigate("VerifyEmail");
+    navigation.navigate("Verify");
   };
 
   return (
