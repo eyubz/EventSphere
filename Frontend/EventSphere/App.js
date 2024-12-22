@@ -6,6 +6,7 @@ import Signup from "./screens/auth/signup";
 import Header from "./components/header";
 import Login from "./screens/auth/login";
 import Verify from "./screens/auth/verify";
+import Home from "./screens/main/home";
 import store from "./redux/store";
 import { Provider } from "react-redux";
 
@@ -46,11 +47,21 @@ export default function App() {
               headerShown: false,
             }}
           /> */}
-          <Stack.Screen
+          {/* <Stack.Screen
             name="Login"
             component={Login}
             options={{
               headerShown: false,
+            }}
+          /> */}
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{
+              headerTitle: () => <Header />,
+              headerStyle: {
+                backgroundColor: "#7F57C4",
+              },
             }}
           />
         </Stack.Navigator>

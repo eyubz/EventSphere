@@ -8,7 +8,7 @@ import {
   LoginUser,
   resetInitialState,
   storeToken,
-} from "../../redux/actions/auth";
+} from "../../redux/actions/authSlice";
 import Icon from "react-native-vector-icons/Ionicons";
 const schema = yup.object({
   email: yup
