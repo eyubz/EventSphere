@@ -1,10 +1,11 @@
 const User = require("../Domain/Entity/user");
 
 class AuthService {
-  constructor(authRepository, verificationService, emailService) {
+  constructor(authRepository, verificationService, emailService, tokenService) {
     this.authRepository = authRepository;
     this.verificationService = verificationService;
     this.emailService = emailService;
+    this.tokenService = tokenService;
   }
 
   SignUpService = async (name, email, password, isOrganizer) => {
@@ -55,6 +56,41 @@ class AuthService {
       return "Email verified successfully. Please login";
     }
     throw new Error("Invalid OTP. OTP expired");
+  };
+
+  LoginService = async (email, password) => {
+    if (!email || !password) {
+      throw new Error("Please fill all the fields");
+    }
+    try {
+      const user = await this.authRepository.FindUserByEmail(email);
+      if (!user) {
+        throw new Error("User not found. Please signup");
+      }
+
+      const existingUser = new User(
+        user.name,
+        user.email,
+        user.password,
+        user.isOrganizer
+      );
+      if (!existingUser.password.ComparePassword(password)) {
+        throw new Error("Invalid email or password");
+      }
+      if (!user.isVerified) {
+        throw new Error("Please verify your email");
+      }
+      const accessToken = this.tokenService.GenerateAccessToken({
+        email: user._id,
+      });
+
+      const refreshToken = this.tokenService.GenerateRefreshToken({
+        email: user._id,
+      });
+      return { accessToken, refreshToken };
+    } catch (error) {
+      throw error;
+    }
   };
 }
 

@@ -28,5 +28,19 @@ class AuthController {
       res.status(400).json({ message: error.message });
     }
   };
+
+  LoginController = async (req, res) => {
+    const { email, password } = req.body;
+    try {
+      const { accessToken, refreshToken } = await this.authService.LoginService(
+        email,
+        password
+      );
+      res.status(200).json({ accessToken, refreshToken });
+    } catch (error) {
+      console.log(error);
+      res.status(400).json({ message: error.message });
+    }
+  };
 }
 module.exports = AuthController;
