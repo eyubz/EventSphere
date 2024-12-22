@@ -26,6 +26,18 @@ export const VerifyEmail = createAsyncThunk(
   }
 );
 
+export const LoginUser = createAsyncThunk(
+  "auth/login",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(`${API_URL}/auth/login`, data);
+      return response.data;
+    } catch {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
 const initialState = {
   success: false,
   error: null,
