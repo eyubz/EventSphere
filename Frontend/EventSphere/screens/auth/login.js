@@ -4,6 +4,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm, Controller } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  LoginUser,
+  resetInitialState,
+  storeToken,
+} from "../../redux/actions/auth";
 import Icon from "react-native-vector-icons/Ionicons";
 const schema = yup.object({
   email: yup
@@ -39,8 +44,15 @@ const Login = ({ navigation }) => {
   });
   const { errors } = formState;
 
-  const handleSignup = () => {
-    console.log("Login");
+  const handleSignup = (data) => {
+    console.log(data);
+    // dispatch(LoginUser(data));
+    // if (success) {
+    //   reset();
+    //   dispatch(storeToken(success.accessToken));
+    //   dispatch(resetInitialState());
+    //   navigation.navigate("Home");
+    // }
   };
 
   return (

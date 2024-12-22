@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import SecureStorage from "react-native-secure-storage";
 const API_URL = "http://localhost:5000/api" || process.env.API_URL;
 
 export const SignUp = createAsyncThunk(
@@ -43,6 +44,8 @@ const initialState = {
   error: null,
   loading: false,
   email: null,
+  accessToken: null,
+  refreshToken: null,
 };
 
 const authSlice = createSlice({
@@ -56,6 +59,11 @@ const authSlice = createSlice({
     },
     setEmail: (state, action) => {
       state.email = action.payload;
+    },
+
+    storeToken: async (state) => {
+      await SecureStorage.setItem("accessToken", state.accessToken);
+      await SecureStorage.setItem("refreshToken", state.refreshToken);
     },
   },
   extraReducers: (builder) => {
@@ -87,8 +95,24 @@ const authSlice = createSlice({
       state.error = action.payload;
       state.success = false;
     });
+    builder.addCase(LoginUser.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(LoginUser.fulfilled, (state, action) => {
+      state.loading = false;
+      state.success = true;
+      state.error = null;
+      state.accessToken = action.payload.accessToken;
+      state.refreshToken = action.payload.refreshToken;
+    });
+    builder.addCase(LoginUser.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+      state.success = false;
+    });
   },
 });
 
 export default authSlice.reducer;
-export const { resetInitialState, setEmail } = authSlice.actions;
+export const { resetInitialState, setEmail, storeToken } = authSlice.actions;
