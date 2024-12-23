@@ -46,6 +46,7 @@ const Login = ({ navigation }) => {
 
   const handleSignup = (data) => {
     console.log(data);
+    navigation.navigate("Home");
     // dispatch(LoginUser(data));
     // if (success) {
     //   reset();
@@ -156,6 +157,12 @@ const Login = ({ navigation }) => {
           Login with Google
         </Text>
       </TouchableOpacity>
+      <View className="flex-row">
+        <Text className="text-gray-500">Don't have an account? </Text>
+        <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
+          <Text className="text-primaryPurple font-bold">Signup</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

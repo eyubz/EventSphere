@@ -1,6 +1,7 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import Onboarding from "./screens/onboarding";
 import Signup from "./screens/auth/signup";
 import Header from "./components/header";
@@ -10,61 +11,102 @@ import Home from "./screens/main/home";
 import store from "./redux/store";
 import { Provider } from "react-redux";
 
-export default function App() {
+function AuthStack() {
   const Stack = createNativeStackNavigator();
+
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Onboarding"
+        component={Onboarding}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Signup"
+        component={Signup}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Verify"
+        component={Verify}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{
+          headerShown: false,
+        }}
+      />
+      {/* <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{
+          headerShown: false,
+        }}
+      /> */}
+    </Stack.Navigator>
+  );
+}
+
+function HomeStack() {
+  const Stack = createNativeStackNavigator();
+
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: "#7F57C4" },
+        headerTintColor: "#fff",
+        headerTitleStyle: { fontWeight: "bold" },
+      }}
+    >
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+export default function App() {
+  const Drawer = createDrawerNavigator();
+  const Stack = createNativeStackNavigator();
+
+  const isAuthenticated = true;
+
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator
-        // screenOptions={{
-        //   headerStyle: { backgroundColor: "#7F57C4" },
-        //   headerTintColor: "#fff",
-        //   headerTitleStyle: { fontWeight: "bold" },
-        // }}
-        >
-          {/* <Stack.Screen
-          name="Welcome to EventSphere"
-          component={Onboarding}
-          options={{
-            headerTitle: () => <Header />,
-            headerStyle: {
-              backgroundColor: "#7F57C4",
-            },
-          }}
-        /> */}
-
-          {/* <Stack.Screen
-            name="Signup"
-            component={Signup}
-            options={{
-              headerShown: false,
+        {!isAuthenticated ? (
+          <Stack.Navigator>
+            <Stack.Screen
+              name="AuthFlow"
+              component={AuthStack}
+              options={{
+                headerShown: false,
+              }}
+            />
+          </Stack.Navigator>
+        ) : (
+          <Drawer.Navigator
+            initialRouteName="Home"
+            drawerContentOptions={{
+              activeTintColor: "#e91e63",
+              itemStyle: { marginVertical: 10 },
             }}
-          /> */}
-          {/* <Stack.Screen
-            name="Verify"
-            component={Verify}
-            options={{
-              headerShown: false,
-            }}
-          /> */}
-          {/* <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{
-              headerShown: false,
-            }}
-          /> */}
-          <Stack.Screen
-            name="Home"
-            component={Home}
-            options={{
-              headerTitle: () => <Header />,
-              headerStyle: {
-                backgroundColor: "#7F57C4",
-              },
-            }}
-          />
-        </Stack.Navigator>
+          >
+            <Drawer.Screen name="Home" component={HomeStack} />
+          </Drawer.Navigator>
+        )}
       </NavigationContainer>
     </Provider>
   );

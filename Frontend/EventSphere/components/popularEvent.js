@@ -31,7 +31,7 @@ const events = [
 const PopularEvent = ({ navigation }) => {
   return (
     <View>
-      <Text>Popular Event</Text>
+      <Text className="text-red-400">Popular Event</Text>
       {events.map((event, index) => {
         return <EventCard key={index} {...event} />;
       })}

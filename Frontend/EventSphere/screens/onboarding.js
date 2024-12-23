@@ -50,7 +50,7 @@ const Onboarding = () => {
     </View>
   );
   return (
-    <View className="bg-white flex-1 items-center">
+    <View className="bg-white flex-1 items-center mt-10">
       <Carousel
         ref={carouselRef}
         width={width}
@@ -60,7 +60,7 @@ const Onboarding = () => {
         renderItem={renderSlide}
         onSnapToItem={(index) => setCurrentIndex(index)}
       />
-      <View className="absolute bottom-60 flex-row space-x-2">
+      <View className="absolute bottom-60 flex-row space-x-2 mb-14">
         {slides.map((_, index) => (
           <View
             key={index}
@@ -71,7 +71,7 @@ const Onboarding = () => {
         ))}
       </View>
 
-      <View className="absolute bottom-20">
+      <View className="absolute bottom-20 mb-10">
         currentIndex === slides.length - 1 ? (
         <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
           <Text
