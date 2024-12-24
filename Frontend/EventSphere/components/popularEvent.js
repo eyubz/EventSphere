@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import EventCard from "./eventCard";
 
 const events = [
@@ -30,12 +30,24 @@ const events = [
 
 const PopularEvent = ({ navigation }) => {
   return (
-    <View>
-      <Text className="text-red-400">Popular Event</Text>
-      {events.map((event, index) => {
-        return <EventCard key={index} {...event} />;
-      })}
-      <Text>See All</Text>
+    <View className="flex-1">
+      <View className="flex-row justify-between items-center bg-white">
+        <Text className="text-primaryPurple text-lg font-bold p-2">
+          Popular Events
+        </Text>
+        <Text
+          className="underline"
+          onPress={() => navigation.navigate("AllEvents")}
+        >
+          See All
+        </Text>
+      </View>
+
+      <ScrollView horizontal>
+        {events.map((event, index) => (
+          <EventCard key={index} {...event} />
+        ))}
+      </ScrollView>
     </View>
   );
 };

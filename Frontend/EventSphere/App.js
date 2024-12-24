@@ -98,7 +98,7 @@ export default function App() {
           </Stack.Navigator>
         ) : (
           <Drawer.Navigator
-            initialRouteName="Home"
+            // initialRouteName="Home"
             drawerContentOptions={{
               activeTintColor: "#e91e63",
               itemStyle: { marginVertical: 10 },
