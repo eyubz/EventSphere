@@ -77,7 +77,7 @@ function HomeStack() {
     </Stack.Navigator>
   );
 }
-function AllEventsStack() {
+function AllEventStack() {
   const Stack = createNativeStackNavigator();
 
   return (
@@ -89,7 +89,7 @@ function AllEventsStack() {
       }}
     >
       <Stack.Screen
-        name="AllEvents"
+        name="events"
         component={AllEvents}
         options={{
           headerShown: false,
@@ -126,8 +126,8 @@ export default function App() {
               itemStyle: { marginVertical: 10 },
             }}
           >
-            <Drawer.Screen name="EventSphere" component={HomeStack} />
-            <Drawer.Screen name="AllEvents" component={AllEventsStack} />
+            {/* <Drawer.Screen name="EventSphere" component={HomeStack} /> */}
+            <Drawer.Screen name="Events" component={AllEventStack} />
           </Drawer.Navigator>
         )}
       </NavigationContainer>

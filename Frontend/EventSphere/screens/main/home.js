@@ -1,5 +1,4 @@
-import { View, Text, ScrollView } from "react-native";
-import SearchBar from "../../components/searchbar";
+import { View, ScrollView } from "react-native";
 import PopularEvent from "../../components/popularEvent";
 import HeroSection from "../../components/heroSection";
 const Home = ({ navigation }) => {
