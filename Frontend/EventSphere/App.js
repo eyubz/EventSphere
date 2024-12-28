@@ -74,6 +74,13 @@ function HomeStack() {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="AllEvents"
+        component={AllEvents}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 }
@@ -126,7 +133,7 @@ export default function App() {
               itemStyle: { marginVertical: 10 },
             }}
           >
-            {/* <Drawer.Screen name="EventSphere" component={HomeStack} /> */}
+            <Drawer.Screen name="EventSphere" component={HomeStack} />
             <Drawer.Screen name="Events" component={AllEventStack} />
           </Drawer.Navigator>
         )}

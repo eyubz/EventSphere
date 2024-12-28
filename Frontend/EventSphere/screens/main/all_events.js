@@ -1,4 +1,5 @@
-import { View, Text, ScrollView } from "react-native";
+import { useState } from "react";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import SearchBar from "../../components/searchbar";
 import FilterSection from "../../components/filterSection";
 import EventCard from "../../components/eventCard";
@@ -51,9 +52,36 @@ const events = [
     time: "12:00PM",
     participant: "Participant 3",
   },
+  {
+    image: require("../../assets/events/event2.jpg"),
+    name: "Event 2",
+    date: "2021-08-02",
+    location: "Location 2",
+    time: "11:00PM",
+    participant: "Participant 2",
+  },
+  {
+    image: require("../../assets/events/event1.jpg"),
+    name: "Event 3",
+    date: "2021-08-03",
+    location: "Location 3",
+    time: "12:00PM",
+    participant: "Participant 3",
+  },
 ];
 
+const ITEM_PER_PAGE = 4;
+
 const AllEvents = ({ navigation }) => {
+  const [data, setData] = useState(events.slice(0, ITEM_PER_PAGE));
+  const [currentIndex, setCurrentIndex] = useState(ITEM_PER_PAGE);
+
+  const handleLoadMore = () => {
+    const index = currentIndex + ITEM_PER_PAGE;
+    setData([...data, ...events.slice(currentIndex, index)]);
+    setCurrentIndex(index);
+  };
+
   return (
     <ScrollView>
       <View className="bg-white">
@@ -72,10 +100,27 @@ const AllEvents = ({ navigation }) => {
           </View>
         </View>
         <View className="flex flex-row flex-wrap justify-center items-center p-0.5">
-          {events.map((event, index) => {
-            return <EventCard key={index} {...event} />;
+          {data.map((event, index) => {
+            return (
+              <TouchableOpacity
+                // onPress={() => navigation.navigate("EventDetail")}
+                key={index}
+              >
+                <EventCard key={index} {...event} />
+              </TouchableOpacity>
+            );
           })}
         </View>
+        {currentIndex < events.length && (
+          <TouchableOpacity
+            onPress={handleLoadMore}
+            className="bg-primaryPurple rounded py-3 px-6 mt-4 mx-auto mb-3"
+          >
+            <Text className="text-white text-center text-base font-medium">
+              Load More
+            </Text>
+          </TouchableOpacity>
+        )}
       </View>
     </ScrollView>
   );
