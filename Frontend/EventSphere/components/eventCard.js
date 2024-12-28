@@ -2,10 +2,7 @@ import { View, Text, Image } from "react-native";
 
 const EventCard = ({ image, name, date, location, time, participant }) => {
   return (
-    <View
-      className="rounded-lg shadow-lg bg-white border border-primaryPurple ml-2"
-      style={{ width: 250 }}
-    >
+    <View className="rounded-lg shadow-lg bg-white border border-primaryPurple ml-2 mb-2">
       <Image
         source={image}
         className="rounded-lg mb-4"
