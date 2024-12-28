@@ -8,6 +8,7 @@ import Header from "./components/header";
 import Login from "./screens/auth/login";
 import Verify from "./screens/auth/verify";
 import Home from "./screens/main/home";
+import AllEvents from "./screens/main/all_events";
 import store from "./redux/store";
 import { Provider } from "react-redux";
 
@@ -76,6 +77,27 @@ function HomeStack() {
     </Stack.Navigator>
   );
 }
+function AllEventsStack() {
+  const Stack = createNativeStackNavigator();
+
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: "#7F57C4" },
+        headerTintColor: "#fff",
+        headerTitleStyle: { fontWeight: "bold" },
+      }}
+    >
+      <Stack.Screen
+        name="AllEvents"
+        component={AllEvents}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
 
 export default function App() {
   const Drawer = createDrawerNavigator();
@@ -104,7 +126,8 @@ export default function App() {
               itemStyle: { marginVertical: 10 },
             }}
           >
-            <Drawer.Screen name="Home" component={HomeStack} />
+            <Drawer.Screen name="EventSphere" component={HomeStack} />
+            <Drawer.Screen name="AllEvents" component={AllEventsStack} />
           </Drawer.Navigator>
         )}
       </NavigationContainer>

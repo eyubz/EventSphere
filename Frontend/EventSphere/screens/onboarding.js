@@ -39,7 +39,7 @@ const Onboarding = () => {
   ];
 
   const renderSlide = ({ item }) => (
-    <View className="items-center justify-center">
+    <View className="items-center justify-center mt-10">
       <Image source={item.image} className="w-4/5 h-1/2 resize-contain" />
       <Text className="font-bold text-2xl my-5 text-primaryPurple ">
         {item.title}
