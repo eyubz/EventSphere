@@ -16,11 +16,13 @@ const NormalFields = ({ profile, isEditing, setIsEditing }) => {
         </View>
       </View>
 
-      <View className="mb-6">
+      <View className="mb-6 border border-primaryPurple rounded-lg p-2">
         <Text className="text-lg font-semibold text-primaryPurple mb-2">
           Bio
         </Text>
-        <Text className="text-base text-gray-700 italic">{profile.bio}</Text>
+        <Text className="text-base text-gray-700 italic">
+          &quot; {profile.bio} &quot;
+        </Text>
       </View>
 
       <View className="flex-row items-center mb-6">

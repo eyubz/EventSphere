@@ -36,6 +36,22 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    title: {
+      type: String,
+      default: "Your title",
+    },
+    bio: {
+      type: String,
+      default: "Your bio",
+    },
+    location: {
+      type: String,
+      default: "Your location",
+    },
+    image: {
+      type: String,
+      default: "https://via.placeholder.com/150",
+    },
   },
   { timestamps: true }
 );

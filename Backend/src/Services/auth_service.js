@@ -81,7 +81,7 @@ class AuthService {
         throw new Error("Please verify your email");
       }
       const accessToken = this.tokenService.GenerateAccessToken({
-        email: user._id,
+        id: user._id,
       });
 
       const refreshToken = this.tokenService.GenerateRefreshToken({

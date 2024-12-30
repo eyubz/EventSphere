@@ -12,7 +12,7 @@ const Profile = () => {
     image: require("../../assets/person/person.jpg"),
   });
 
-  const [isEditing, setIsEditing] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
 
   return (
     <>
