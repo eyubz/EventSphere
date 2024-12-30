@@ -6,11 +6,14 @@ import EventCard from "../../components/eventCard";
 const events = [
   {
     image: require("../../assets/events/image1_0.jpg"),
-    name: "Event 1",
+    name: "Meeting",
     date: "2021-08-01",
     location: "Location 1",
     time: "10:00PM",
     participant: "Participant 1",
+    organizer: "EBS",
+    description:
+      "This is a detailed description of the event. It provides more context, background, and information to help participants understand what to expect and why they should attend.",
   },
   {
     image: require("../../assets/events/event2.jpg"),
@@ -19,6 +22,9 @@ const events = [
     location: "Location 2",
     time: "11:00PM",
     participant: "Participant 2",
+    organizer: "EBS",
+    description:
+      "This is a detailed description of the event. It provides more context, background, and information to help participants understand what to expect and why they should attend.",
   },
   {
     image: require("../../assets/events/event1.jpg"),
@@ -27,6 +33,9 @@ const events = [
     location: "Location 3",
     time: "12:00PM",
     participant: "Participant 3",
+    organizer: "EBS",
+    description:
+      "This is a detailed description of the event. It provides more context, background, and information to help participants understand what to expect and why they should attend.",
   },
   {
     image: require("../../assets/events/image1_0.jpg"),
@@ -35,6 +44,9 @@ const events = [
     location: "Location 1",
     time: "10:00PM",
     participant: "Participant 1",
+    organizer: "EBS",
+    description:
+      "This is a detailed description of the event. It provides more context, background, and information to help participants understand what to expect and why they should attend.",
   },
   {
     image: require("../../assets/events/event2.jpg"),
@@ -43,6 +55,7 @@ const events = [
     location: "Location 2",
     time: "11:00PM",
     participant: "Participant 2",
+    organizer: "EBS",
   },
   {
     image: require("../../assets/events/event1.jpg"),
@@ -51,6 +64,9 @@ const events = [
     location: "Location 3",
     time: "12:00PM",
     participant: "Participant 3",
+    organizer: "EBS",
+    description:
+      "This is a detailed description of the event. It provides more context, background, and information to help participants understand what to expect and why they should attend.",
   },
   {
     image: require("../../assets/events/event2.jpg"),
@@ -59,6 +75,9 @@ const events = [
     location: "Location 2",
     time: "11:00PM",
     participant: "Participant 2",
+    organizer: "EBS",
+    description:
+      "This is a detailed description of the event. It provides more context, background, and information to help participants understand what to expect and why they should attend.",
   },
   {
     image: require("../../assets/events/event1.jpg"),
@@ -67,6 +86,9 @@ const events = [
     location: "Location 3",
     time: "12:00PM",
     participant: "Participant 3",
+    organizer: "EBS",
+    description:
+      "This is a detailed description of the event. It provides more context, background, and information to help participants understand what to expect and why they should attend.",
   },
 ];
 
@@ -80,6 +102,10 @@ const AllEvents = ({ navigation }) => {
     const index = currentIndex + ITEM_PER_PAGE;
     setData([...data, ...events.slice(currentIndex, index)]);
     setCurrentIndex(index);
+  };
+
+  const handleEventDetail = (event) => {
+    navigation.navigate("EventDetail", { ...event });
   };
 
   return (
@@ -103,7 +129,7 @@ const AllEvents = ({ navigation }) => {
           {data.map((event, index) => {
             return (
               <TouchableOpacity
-                // onPress={() => navigation.navigate("EventDetail")}
+                onPress={() => handleEventDetail(event)}
                 key={index}
               >
                 <EventCard key={index} {...event} />

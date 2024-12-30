@@ -9,6 +9,7 @@ import Login from "./screens/auth/login";
 import Verify from "./screens/auth/verify";
 import Home from "./screens/main/home";
 import AllEvents from "./screens/main/all_events";
+import EventDetail from "./screens/main/event_detail";
 import store from "./redux/store";
 import { Provider } from "react-redux";
 
@@ -75,8 +76,8 @@ function HomeStack() {
         }}
       />
       <Stack.Screen
-        name="AllEvents"
-        component={AllEvents}
+        name="EventDetail"
+        component={EventDetail}
         options={{
           headerShown: false,
         }}
@@ -98,6 +99,20 @@ function AllEventStack() {
       <Stack.Screen
         name="events"
         component={AllEvents}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="AllEvents"
+        component={AllEvents}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="EventDetail"
+        component={EventDetail}
         options={{
           headerShown: false,
         }}
@@ -133,7 +148,7 @@ export default function App() {
               itemStyle: { marginVertical: 10 },
             }}
           >
-            <Drawer.Screen name="EventSphere" component={HomeStack} />
+            {/* <Drawer.Screen name="EventSphere" component={HomeStack} /> */}
             <Drawer.Screen name="Events" component={AllEventStack} />
           </Drawer.Navigator>
         )}
