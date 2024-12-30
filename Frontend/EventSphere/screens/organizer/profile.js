@@ -1,6 +1,5 @@
 import { useState } from "react";
 import NormalFields from "./displayProfile";
-import Icon from "react-native-vector-icons/Ionicons";
 import EditableFields from "./editProfile";
 
 const Profile = () => {

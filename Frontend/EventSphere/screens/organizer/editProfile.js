@@ -1,5 +1,6 @@
 import { View, Text, Image, TouchableOpacity, TextInput } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
+import { launchImageLibrary } from "react-native-image-picker";
 
 const EditableFields = ({ profile, setProfile, isEditing, setIsEditing }) => {
   const handleChange = (field, value) => {
@@ -31,7 +32,7 @@ const EditableFields = ({ profile, setProfile, isEditing, setIsEditing }) => {
       <View className="flex-row items-center mb-6">
         <TouchableOpacity onPress={handleImageUpload} disabled={!isEditing}>
           <Image
-            source={{ uri: profile.image }}
+            source={profile.image}
             className="w-32 h-32 rounded-full border-4 border-primaryPurple mr-6"
           />
         </TouchableOpacity>
@@ -41,7 +42,7 @@ const EditableFields = ({ profile, setProfile, isEditing, setIsEditing }) => {
             value={profile.name}
             onChangeText={(value) => handleChange("name", value)}
             editable={isEditing}
-            className="text-3xl font-bold text-gray-900 mb-2"
+            className="text-3xl font-bold text-gray-900 mb-2 border border-primaryPurple rounded-lg"
             placeholder="Enter your name"
             placeholderTextColor="#B3B3B3"
           />
@@ -49,7 +50,7 @@ const EditableFields = ({ profile, setProfile, isEditing, setIsEditing }) => {
             value={profile.title}
             onChangeText={(value) => handleChange("title", value)}
             editable={isEditing}
-            className="text-lg text-gray-600"
+            className="text-lg text-gray-600 border border-primaryPurple rounded-lg"
             placeholder="Enter your title"
             placeholderTextColor="#B3B3B3"
           />
@@ -66,7 +67,7 @@ const EditableFields = ({ profile, setProfile, isEditing, setIsEditing }) => {
           editable={isEditing}
           multiline
           numberOfLines={4}
-          className="text-base text-gray-700 border border-primaryPurple  p-3 rounded-md"
+          className="text-base text-gray-700 border border-primaryPurple p-3 rounded-md"
           placeholder="Write your bio..."
           placeholderTextColor="#B3B3B3"
         />
@@ -78,7 +79,7 @@ const EditableFields = ({ profile, setProfile, isEditing, setIsEditing }) => {
           value={profile.location}
           onChangeText={(value) => handleChange("location", value)}
           editable={isEditing}
-          className="text-base text-gray-700 ml-2"
+          className="text-base text-gray-700 ml-2 border border-primaryPurple rounded-lg"
           placeholder="Enter your location"
           placeholderTextColor="#B3B3B3"
         />
