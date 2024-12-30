@@ -13,6 +13,7 @@ import EventDetail from "./screens/main/event_detail";
 import store from "./redux/store";
 import { Provider } from "react-redux";
 import Profile from "./screens/organizer/profile";
+import UploadEvents from "./screens/organizer/uploadEvents";
 
 function AuthStack() {
   const Stack = createNativeStackNavigator();
@@ -104,6 +105,13 @@ function AllEventStack() {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="eventUpload"
+        component={UploadEvents}
+        options={{
+          headerShown: false,
+        }}
+      />
       {/* <Stack.Screen
         name="AllEvents"
         component={AllEvents}
@@ -152,6 +160,7 @@ export default function App() {
             {/* <Drawer.Screen name="EventSphere" component={HomeStack} /> */}
             {/* <Drawer.Screen name="Events" component={AllEventStack} /> */}
             <Drawer.Screen name="Profile" component={AllEventStack} />
+            <Drawer.Screen name="Upload Event" component={AllEventStack} />
           </Drawer.Navigator>
         )}
       </NavigationContainer>
