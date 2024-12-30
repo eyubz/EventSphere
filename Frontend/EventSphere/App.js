@@ -12,6 +12,7 @@ import AllEvents from "./screens/main/all_events";
 import EventDetail from "./screens/main/event_detail";
 import store from "./redux/store";
 import { Provider } from "react-redux";
+import Profile from "./screens/organizer/profile";
 
 function AuthStack() {
   const Stack = createNativeStackNavigator();
@@ -97,19 +98,19 @@ function AllEventStack() {
       }}
     >
       <Stack.Screen
-        name="events"
-        component={AllEvents}
+        name="OrganizerProfile"
+        component={Profile}
         options={{
           headerShown: false,
         }}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="AllEvents"
         component={AllEvents}
         options={{
           headerShown: false,
         }}
-      />
+      /> */}
       <Stack.Screen
         name="EventDetail"
         component={EventDetail}
@@ -149,7 +150,8 @@ export default function App() {
             }}
           >
             {/* <Drawer.Screen name="EventSphere" component={HomeStack} /> */}
-            <Drawer.Screen name="Events" component={AllEventStack} />
+            {/* <Drawer.Screen name="Events" component={AllEventStack} /> */}
+            <Drawer.Screen name="Profile" component={AllEventStack} />
           </Drawer.Navigator>
         )}
       </NavigationContainer>
