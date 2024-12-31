@@ -54,15 +54,9 @@ const Signup = ({ navigation }) => {
     useState(false);
 
   const handleSignup = (data) => {
-    // dispatch(setEmail(data.email));
-    // dispatch(SignUp(data));
-
-    // if (success) {
-    //   dispatch(resetInitialState());
-    //   navigation.navigate("Verify");
-    // }
-
-    console.log(data);
+    dispatch(setEmail(data.email));
+    dispatch(SignUp(data));
+    dispatch(resetInitialState());
     reset();
     navigation.navigate("Verify");
   };
@@ -213,7 +207,7 @@ const Signup = ({ navigation }) => {
         )}
       />
       {error && (
-        <View className="mb-2 flex left items-start justify-start -ml-40">
+        <View className="mb-2 flex left items-start justify-start">
           <Text className="text-red-500">{error}</Text>
         </View>
       )}

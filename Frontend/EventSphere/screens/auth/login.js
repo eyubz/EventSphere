@@ -47,13 +47,13 @@ const Login = ({ navigation }) => {
   const handleSignup = (data) => {
     console.log(data);
     navigation.navigate("Home");
-    // dispatch(LoginUser(data));
-    // if (success) {
-    //   reset();
-    //   dispatch(storeToken(success.accessToken));
-    //   dispatch(resetInitialState());
-    //   navigation.navigate("Home");
-    // }
+    dispatch(LoginUser(data));
+    if (success) {
+      reset();
+      dispatch(storeToken(success.accessToken));
+      dispatch(resetInitialState());
+      navigation.navigate("Home");
+    }
   };
 
   return (

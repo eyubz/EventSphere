@@ -1,15 +1,21 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import SecureStorage from "react-native-secure-storage";
-const API_URL = "http://localhost:5000/api" || process.env.API_URL;
+const API_URL = "http://192.168.43.168:5000/api/v1";
 
 export const SignUp = createAsyncThunk(
   "auth/signup",
   async (data, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${API_URL}/auth/signup`, data);
+      const response = await axios.post(`${API_URL}/auth/signup`, data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      console.log(response);
       return response.data;
-    } catch {
+    } catch (error) {
+      console.log(error.response.data.message);
       return rejectWithValue(error.response.data.message);
     }
   }

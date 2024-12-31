@@ -14,7 +14,27 @@ const user_route = require("./Routes/user_route");
 
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+
+app.use((req, res, next) => {
+  console.log("CORS applied to:", req.method, req.path);
+  next();
+});
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.get("/api/v1/auth", (req, res, next) => {
+  res.send("Hi elsa");
+  next();
+});
+
 app.use(bodyParser.json());
 app.use("/api/v1/auth", auth_route);
 app.use("/api/v1/refresh", refresh_route);

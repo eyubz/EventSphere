@@ -82,7 +82,7 @@ const Verify = ({ navigation }) => {
         <Text className="text-primaryPurple">Resend email ?</Text>
       </TouchableOpacity>
       {error && (
-        <View className="mb-2 flex left items-start justify-start -ml-40">
+        <View className="mb-2 flex left items-start justify-start">
           <Text className="text-red-500">{error}</Text>
         </View>
       )}
