@@ -4,11 +4,11 @@ class Password {
     if (!password) {
       throw new Error("Password is required.");
     }
-    if (!this.ValidatePassword(password)) {
-      throw new Error(
-        "Password must contain at least 8 characters, including one letter, one number and one special character."
-      );
-    }
+    // if (!this.ValidatePassword(password)) {
+    //   throw new Error(
+    //     "Password must contain at least 8 characters, including one letter, one number and one special character."
+    //   );
+    // }
     this.password = password;
   }
   ValidatePassword(password) {

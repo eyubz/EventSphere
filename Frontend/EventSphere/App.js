@@ -10,10 +10,9 @@ import Verify from "./screens/auth/verify";
 import Home from "./screens/main/home";
 import AllEvents from "./screens/main/all_events";
 import EventDetail from "./screens/main/event_detail";
-import store from "./redux/store";
-import { Provider } from "react-redux";
 import Profile from "./screens/organizer/profile";
 import UploadEvents from "./screens/organizer/uploadEvents";
+import { AuthProvider } from "./context/authContext";
 
 function AuthStack() {
   const Stack = createNativeStackNavigator();
@@ -48,14 +47,29 @@ function AuthStack() {
           headerShown: false,
         }}
       />
-      {/* <Stack.Screen
+      <Stack.Screen
+        name="HomeStack"
+        component={HomeStackScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function HomeStackScreen() {
+  return (
+    <HomeStack.Navigator>
+      <HomeStack.Screen
         name="Home"
         component={Home}
         options={{
           headerShown: false,
         }}
-      /> */}
-    </Stack.Navigator>
+      />
+      {/* Add other screens in the Home stack if needed */}
+    </HomeStack.Navigator>
   );
 }
 
@@ -137,7 +151,7 @@ export default function App() {
   const isAuthenticated = false;
 
   return (
-    <Provider store={store}>
+    <AuthProvider>
       <NavigationContainer>
         {!isAuthenticated ? (
           <Stack.Navigator>
@@ -164,6 +178,6 @@ export default function App() {
           </Drawer.Navigator>
         )}
       </NavigationContainer>
-    </Provider>
+    </AuthProvider>
   );
 }

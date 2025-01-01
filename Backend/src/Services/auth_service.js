@@ -37,6 +37,7 @@ class AuthService {
     }
   };
   VerifyOTP = async (email, otp) => {
+    console.log(email, otp);
     if (!email || !otp) {
       throw new Error("Please fill all the fields");
     }

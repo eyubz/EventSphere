@@ -1,16 +1,20 @@
-import React from "react";
-import { useState, useRef } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import { Text, View, TouchableOpacity, Image, TextInput } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-// import { VerifyEmail, resetInitialState } from "../redux/actions/authSlice";
-
+import { AuthContext } from "../../context/authContext";
 import Icon from "react-native-vector-icons/Ionicons";
+
 const Verify = ({ navigation }) => {
-  const { emai, success, loading, error } = useSelector((state) => state.auth);
-  // const dispatch = useDispatch();
-  const email = "example@gmail.com";
+  const { authState, verifyEmail } = useContext(AuthContext);
+  const { email, verificationSuccess, verifyLoading, error } = authState;
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const ref = useRef([]);
+
+  useEffect(() => {
+    if (verificationSuccess) {
+      navigation.navigate("Login");
+    }
+  }, [verificationSuccess, navigation]);
+
   const handleChange = (text, index) => {
     if (text.length > 1) {
       return;
@@ -32,13 +36,13 @@ const Verify = ({ navigation }) => {
   };
 
   const handleVerify = () => {
-    navigation.navigate("Login");
-    // const otpValue = otp.join("");
-    // dispatch(VerifyEmail({ email, otp: otpValue }));
-    // resetInitialState();
-    // if (success) {
-    //   navigation.navigate("Login");
-    // }
+    const otpValue = otp.join("");
+    // console.log(authState);
+    if (otpValue.length === 6) {
+      verifyEmail({ email, otp: otpValue });
+    } else {
+      alert("Please enter the complete OTP");
+    }
   };
 
   return (
@@ -68,7 +72,7 @@ const Verify = ({ navigation }) => {
             keyboardType="numeric"
             maxLength={1}
             onKeyPress={(e) => handleKeyPress(e, index)}
-            onChange={(value) => handleChange(value, index)}
+            onChangeText={(text) => handleChange(text, index)}
             ref={(el) => (ref.current[index] = el)}
             className="bg-primary rounded-lg w-12 text-white text-center text-lg"
           />
@@ -88,7 +92,7 @@ const Verify = ({ navigation }) => {
       )}
       <TouchableOpacity onPress={handleVerify}>
         <Text className="text-white bg-primaryPurple p-4 rounded-xl mt-2 w-36 text-center">
-          {loading ? "Loading..." : "Login"}
+          {verifyLoading ? "Loading..." : "Verify"}
         </Text>
       </TouchableOpacity>
     </View>

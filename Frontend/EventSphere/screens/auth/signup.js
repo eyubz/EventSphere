@@ -1,15 +1,10 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm, Controller } from "react-hook-form";
-import {
-  SignUp,
-  resetInitialState,
-  setEmail,
-} from "../../redux/actions/authSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { AuthContext } from "../../context/authContext";
 
 const schema = yup.object({
   name: yup.string().required("Full name is required."),
@@ -41,8 +36,8 @@ const schema = yup.object({
 });
 
 const Signup = ({ navigation }) => {
-  const dispatch = useDispatch();
-  const { success, error, loading } = useSelector((state) => state.auth);
+  const { authState, signUp } = useContext(AuthContext);
+  const { success, error, signLoading } = authState;
   const { control, handleSubmit, formState, reset } = useForm({
     resolver: yupResolver(schema),
     mode: "all",
@@ -53,12 +48,15 @@ const Signup = ({ navigation }) => {
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
     useState(false);
 
+  useEffect(() => {
+    if (success) {
+      reset();
+      navigation.navigate("Verify");
+    }
+  }, [success, navigation, reset]);
+
   const handleSignup = (data) => {
-    dispatch(setEmail(data.email));
-    dispatch(SignUp(data));
-    dispatch(resetInitialState());
-    reset();
-    navigation.navigate("Verify");
+    signUp(data);
   };
 
   return (
@@ -217,7 +215,7 @@ const Signup = ({ navigation }) => {
         disabled={!formState.isValid || formState.isSubmitting}
       >
         <Text className="text-center text-white font-bold text-lg">
-          {loading ? "Loading..." : "Sign Up"}
+          {signLoading ? "Loading..." : "Sign Up"}
         </Text>
       </TouchableOpacity>
 

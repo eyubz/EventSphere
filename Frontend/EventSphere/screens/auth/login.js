@@ -1,15 +1,11 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm, Controller } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  LoginUser,
-  resetInitialState,
-  storeToken,
-} from "../../redux/actions/authSlice";
 import Icon from "react-native-vector-icons/Ionicons";
+import { AuthContext } from "../../context/authContext";
+
 const schema = yup.object({
   email: yup
     .string()
@@ -35,8 +31,8 @@ const schema = yup.object({
 });
 
 const Login = ({ navigation }) => {
-  const dispatch = useDispatch();
-  const { success, error, loading } = useSelector((state) => state.auth);
+  const { authState, loginUser } = useContext(AuthContext);
+  const { loginSuccess, error, loginLoading } = authState;
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const { control, handleSubmit, formState, reset } = useForm({
     resolver: yupResolver(schema),
@@ -44,16 +40,16 @@ const Login = ({ navigation }) => {
   });
   const { errors } = formState;
 
-  const handleSignup = (data) => {
-    console.log(data);
-    navigation.navigate("Home");
-    dispatch(LoginUser(data));
-    if (success) {
+  useEffect(() => {
+    if (loginSuccess) {
       reset();
-      dispatch(storeToken(success.accessToken));
-      dispatch(resetInitialState());
       navigation.navigate("Home");
     }
+  }, [loginSuccess, navigation, reset]);
+
+  const handleLogin = (data) => {
+    loginUser(data);
+    console.log(authState);
   };
 
   return (
@@ -136,12 +132,12 @@ const Login = ({ navigation }) => {
         <Text className="text-primaryPurple">Forgot password?</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={handleSubmit(handleSignup)}
+        onPress={handleSubmit(handleLogin)}
         className="w-full bg-primaryPurple rounded-xl py-3 mt-3 mb-4"
         disabled={!formState.isValid || formState.isSubmitting}
       >
         <Text className="text-center text-white font-bold text-lg">
-          {loading ? "Loading..." : "Login"}
+          {loginLoading ? "Loading..." : "Login"}
         </Text>
       </TouchableOpacity>
       <Text className="mt-1 mb-4 text-primary">OR</Text>
