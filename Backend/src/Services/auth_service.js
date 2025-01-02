@@ -88,7 +88,7 @@ class AuthService {
       const refreshToken = this.tokenService.GenerateRefreshToken({
         email: user._id,
       });
-      return { accessToken, refreshToken };
+      return { accessToken, refreshToken, isOrganizer: user.isOrganizer };
     } catch (error) {
       throw error;
     }

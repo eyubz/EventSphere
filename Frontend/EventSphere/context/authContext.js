@@ -18,6 +18,7 @@ export const AuthProvider = ({ children }) => {
     accessToken: null,
     refreshToken: null,
     success: false,
+    isOrganizer: false,
   });
 
   const signUp = async (data) => {
@@ -54,6 +55,7 @@ export const AuthProvider = ({ children }) => {
         loginSuccess: true,
         accessToken,
         refreshToken,
+        isOrganizer: response.data.isOrganizer,
       });
       // await SecureStorage.setItem("accessToken", accessToken);
       // await SecureStorage.setItem("refreshToken", refreshToken);

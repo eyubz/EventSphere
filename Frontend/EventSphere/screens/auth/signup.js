@@ -33,6 +33,7 @@ const schema = yup.object({
     .string()
     .oneOf([yup.ref("password"), undefined], "Passwords must match.")
     .required("Please confirm your password."),
+  isOrganizer: yup.boolean(),
 });
 
 const Signup = ({ navigation }) => {
@@ -41,6 +42,9 @@ const Signup = ({ navigation }) => {
   const { control, handleSubmit, formState, reset } = useForm({
     resolver: yupResolver(schema),
     mode: "all",
+    defaultValues: {
+      isOrganizer: false,
+    },
   });
   const { errors } = formState;
 
@@ -56,6 +60,7 @@ const Signup = ({ navigation }) => {
   }, [success, navigation, reset]);
 
   const handleSignup = (data) => {
+    console.log(data);
     signUp(data);
   };
 
@@ -188,7 +193,7 @@ const Signup = ({ navigation }) => {
 
       <Controller
         control={control}
-        name="role"
+        name="isOrganizer"
         render={({ field: { onChange, value } }) => (
           <View className="flex-row items-center justify-start -ml-44 mt-2 mb-2">
             <TouchableOpacity onPress={() => onChange(!value)}>

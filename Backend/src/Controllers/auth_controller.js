@@ -4,6 +4,7 @@ class AuthController {
   }
   SignupController = async (req, res) => {
     const { name, email, password, isOrganizer } = req.body;
+    console.log(req.body);
     try {
       const message = await this.authService.SignUpService(
         name,
@@ -32,12 +33,9 @@ class AuthController {
   LoginController = async (req, res) => {
     const { email, password } = req.body;
     try {
-      const { accessToken, refreshToken } = await this.authService.LoginService(
-        email,
-        password
-      );
-      console.log("Access Token", accessToken);
-      res.status(200).json({ accessToken, refreshToken });
+      const { accessToken, refreshToken, isOrganizer } =
+        await this.authService.LoginService(email, password);
+      res.status(200).json({ accessToken, refreshToken, isOrganizer });
     } catch (error) {
       console.log(error);
       res.status(400).json({ message: error.message });

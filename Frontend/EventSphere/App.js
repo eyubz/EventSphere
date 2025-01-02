@@ -18,6 +18,7 @@ import UploadedEvents from "./screens/organizer/uploadedEvents";
 import RsvpEvents from "./screens/user/rsvpEvents";
 import SavedEvents from "./screens/user/savedEvents";
 import Notification from "./screens/user/notification";
+import Logout from "./screens/user/logout";
 
 function AuthStack() {
   const Stack = createNativeStackNavigator();
@@ -68,7 +69,7 @@ function HomeStack() {
       }}
     >
       <Stack.Screen
-        name="Home"
+        name="home"
         component={Home}
         options={{
           headerShown: false,
@@ -94,7 +95,7 @@ function HomeStack() {
 
 function AppNavigator() {
   const { authState } = useContext(AuthContext);
-  // const { loginSuccess } = authState;
+  //const { loginSuccess, isOrganizer } = authState;
 
   const loginSuccess = true;
   const isOrganizer = false;
@@ -114,11 +115,12 @@ function AppNavigator() {
         >
           {!isOrganizer ? (
             <>
-              <Drawer.Screen name="EventSphere" component={HomeStack} />
+              <Drawer.Screen name="Event Sphere" component={HomeStack} />
               <Drawer.Screen name="Profile" component={Profile} />
               <Drawer.Screen name="RSVP" component={RsvpEvents} />
               <Drawer.Screen name="Saved" component={SavedEvents} />
               <Drawer.Screen name="Notification" component={Notification} />
+              <Drawer.Screen name="Logout" component={Logout} />
             </>
           ) : (
             <>
@@ -126,6 +128,7 @@ function AppNavigator() {
               <Drawer.Screen name="Profile" component={Profile} />
               <Drawer.Screen name="UploadEvents" component={UploadEvents} />
               <Drawer.Screen name="UploadedEvents" component={UploadedEvents} />
+              <Drawer.Screen name="Logout" component={Logout} />
             </>
           )}
         </Drawer.Navigator>

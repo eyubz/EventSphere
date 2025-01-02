@@ -125,12 +125,15 @@ const Login = ({ navigation }) => {
           <Text className="text-red-500">{error}</Text>
         </View>
       )}
-      <TouchableOpacity
-        className="flex-row items-center ml-60"
-        onPress={() => navigation.navigate("Forgot Password")}
-      >
-        <Text className="text-primaryPurple">Forgot password?</Text>
-      </TouchableOpacity>
+      <View>
+        <TouchableOpacity
+          className="flex-row items-center ml-60"
+          onPress={() => navigation.navigate("Forgot Password")}
+        >
+          <Text className="text-primaryPurple">Forgot password?</Text>
+        </TouchableOpacity>
+      </View>
+
       <TouchableOpacity
         onPress={handleSubmit(handleLogin)}
         className="w-full bg-primaryPurple rounded-xl py-3 mt-3 mb-4"
