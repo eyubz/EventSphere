@@ -72,19 +72,17 @@ const Onboarding = () => {
       </View>
 
       <View className="absolute bottom-20 mb-10">
-        currentIndex === slides.length - 1 ? (
-        <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
-          <Text
-            className={`text-primaryPurple font-bold text-lg ${
-              currentIndex === slides.length - 1
-                ? "bg-primaryPurple p-4 text-white text-2xl rounded-lg"
-                : ""
-            }`}
-          >
-            {currentIndex === slides.length - 1 ? "Get Started" : "Skip"}
-          </Text>
-        </TouchableOpacity>
-        )
+        {currentIndex === slides.length - 1 ? (
+          <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
+            <Text className="bg-primaryPurple p-4 text-white text-2xl rounded-lg">
+              Get Started
+            </Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
+            <Text className="text-primaryPurple font-bold text-lg">Skip</Text>
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );

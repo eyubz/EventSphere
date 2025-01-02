@@ -14,6 +14,7 @@ import Profile from "./screens/organizer/profile";
 import UploadEvents from "./screens/organizer/uploadEvents";
 import { AuthProvider, AuthContext } from "./context/authContext";
 import { EventProvider } from "./context/eventContext";
+import UploadedEvents from "./screens/organizer/uploadedEvents";
 
 function AuthStack() {
   const Stack = createNativeStackNavigator();
@@ -112,9 +113,10 @@ function AppNavigator() {
             <Drawer.Screen name="EventSphere" component={HomeStack} />
           ) : (
             <>
-              {/* <Drawer.Screen name="Home" component={HomeStack} /> */}
-              {/* <Drawer.Screen name="Profile" component={Profile} /> */}
-              <Drawer.Screen name="UploadEvents" component={UploadEvents} />
+              {/* <Drawer.Screen name="Home" component={HomeStack} />
+              <Drawer.Screen name="Profile" component={Profile} />
+              <Drawer.Screen name="UploadEvents" component={UploadEvents} /> */}
+              <Drawer.Screen name="UploadedEvents" component={UploadedEvents} />
             </>
           )}
         </Drawer.Navigator>
