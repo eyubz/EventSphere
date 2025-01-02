@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Text, View, ScrollView, TouchableOpacity } from "react-native";
 import UploadCard from "./uploadCard";
+import { EventContext } from "../../context/eventContext";
 
 const UploadedEvents = () => {
+  const { eventState, fetchEvents } = useContext(EventContext);
+  const { events } = eventState;
   const allEvents = [
     {
       id: "1",
@@ -50,6 +53,10 @@ const UploadedEvents = () => {
     setVisibleEvents(nextEvents);
   };
 
+  useEffect(() => {
+    fetchEvents();
+  }, []);
+
   return (
     <ScrollView>
       <View className="min-h-screen bg-gray-100 p-8">
@@ -64,7 +71,7 @@ const UploadedEvents = () => {
         ) : (
           <View className="flex flex-wrap justify-center gap-6">
             {visibleEvents.map((event) => (
-              <UploadCard key={event.id} event={event} />
+              <UploadCard key={event.id} {...event} />
             ))}
           </View>
         )}

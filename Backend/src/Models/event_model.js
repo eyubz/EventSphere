@@ -26,6 +26,10 @@ const eventSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    rsvpCont: {
+      type: Number,
+      default: 0,
+    },
     organizer: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

@@ -56,6 +56,19 @@ class UserService {
       throw error;
     }
   };
+
+  GetEvents = async (userId) => {
+    if (!userId) {
+      throw new Error("user id required");
+    }
+    try {
+      const user = await this.userRepository.FindUserById(userId);
+      const events = await this.eventRepository.GetEvents(user.events);
+      return events;
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 module.exports = UserService;

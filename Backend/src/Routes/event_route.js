@@ -14,5 +14,6 @@ const userService = new UserService(userRepository);
 const userController = new UserController(userService, eventRepository);
 
 route.post("", upload.single("image"), userController.UploadImage);
+route.get("", userController.GetEvents);
 
 module.exports = route;
