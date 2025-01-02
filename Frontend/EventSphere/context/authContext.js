@@ -48,8 +48,6 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await axios.post(`${API_URL}/auth/login`, userData);
       const { accessToken, refreshToken } = response.data;
-      // await SecureStorage.setItem("accessToken", accessToken);
-      // await SecureStorage.setItem("refreshToken", refreshToken);
       setAuthState({
         ...authState,
         loginLoading: false,
@@ -57,7 +55,8 @@ export const AuthProvider = ({ children }) => {
         accessToken,
         refreshToken,
       });
-      console.log(authState);
+      // await SecureStorage.setItem("accessToken", accessToken);
+      // await SecureStorage.setItem("refreshToken", refreshToken);
     } catch (error) {
       setAuthState({
         ...authState,

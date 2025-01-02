@@ -8,7 +8,7 @@ import {
 import { useState } from "react";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import Icon from "react-native-vector-icons/Ionicons";
-import { launchImageLibrary } from "react-native-image-picker";
+import * as ImagePicker from "expo-image-picker";
 
 const UploadEvents = () => {
   const [event, setEvent] = useState({
@@ -50,24 +50,28 @@ const UploadEvents = () => {
     }));
   };
 
-  const handleImageUpload = () => {
-    console.log("uploading image");
-    launchImageLibrary(
-      {
-        mediaType: "photo",
-        quality: 0.5,
-        includeBase64: false,
-      },
-      (response) => {
-        if (response.assets && response.assets.length > 0) {
-          const source = response.assets[0].uri;
-          setEvent((prev) => ({
-            ...prev,
-            image: source,
-          }));
-        }
-      }
-    );
+  const handleSubmit = () => {
+    console.log(event);
+  };
+
+  const handleImageUpload = async () => {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== "granted") {
+      alert("Sorry, we need camera roll permissions to make this work!");
+      return;
+    }
+
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      quality: 0.5,
+    });
+
+    if (!result.canceled) {
+      setEvent((prev) => ({
+        ...prev,
+        image: result.assets[0].uri,
+      }));
+    }
   };
 
   return (
@@ -155,6 +159,15 @@ const UploadEvents = () => {
           className="flex-1 text-base"
         />
       </View>
+      <View className="p-2 mb-4 bg-white rounded-lg border border-gray-300 flex-row items-center">
+        <Icon name="person" size={24} color="#7E57C2" className="mr-4" />
+        <TextInput
+          value={event.organizer}
+          onChangeText={(value) => handleChange("organizer", value)}
+          placeholder="Organizer"
+          className="flex-1 text-base"
+        />
+      </View>
       <TouchableOpacity onPress={handleImageUpload} className="mb-4">
         <View className="p-4 bg-white rounded-lg border border-gray-300 flex-row items-center justify-between">
           <Text className="text-base text-gray-400">Upload Event Image</Text>
@@ -163,7 +176,7 @@ const UploadEvents = () => {
       </TouchableOpacity>
 
       <TouchableOpacity
-        onPress={() => console.log()}
+        onPress={handleSubmit}
         className="bg-primaryPurple p-4 rounded-lg mt-6 flex-row items-center justify-center mb-10"
       >
         <Icon name="cloud-upload" size={24} color="#FFFFFF" className="mr-2" />

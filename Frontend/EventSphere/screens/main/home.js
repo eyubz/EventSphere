@@ -7,7 +7,7 @@ const Home = ({ navigation }) => {
       <View className="bg-white">
         <HeroSection />
         <View className="bg-white p-2">
-          <PopularEvent />
+          <PopularEvent navigation={navigation} />
         </View>
       </View>
     </ScrollView>

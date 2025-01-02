@@ -10,7 +10,7 @@ const userRepository = new UserRepository(userModel);
 const userService = new UserService(userRepository);
 const userController = new UserController(userService);
 
-route.get("/profile", upload.single("image"), userController.GetUserProfile);
-route.put("/profile", userController.UpdateUserProfile);
+route.get("/profile", userController.GetUserProfile);
+route.put("/profile", upload.single("image"), userController.UpdateUserProfile);
 
 module.exports = route;

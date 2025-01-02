@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
@@ -12,7 +12,7 @@ import AllEvents from "./screens/main/all_events";
 import EventDetail from "./screens/main/event_detail";
 import Profile from "./screens/organizer/profile";
 import UploadEvents from "./screens/organizer/uploadEvents";
-import { AuthProvider } from "./context/authContext";
+import { AuthProvider, AuthContext } from "./context/authContext";
 
 function AuthStack() {
   const Stack = createNativeStackNavigator();
@@ -47,29 +47,7 @@ function AuthStack() {
           headerShown: false,
         }}
       />
-      <Stack.Screen
-        name="HomeStack"
-        component={HomeStackScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
     </Stack.Navigator>
-  );
-}
-
-function HomeStackScreen() {
-  return (
-    <HomeStack.Navigator>
-      <HomeStack.Screen
-        name="Home"
-        component={Home}
-        options={{
-          headerShown: false,
-        }}
-      />
-      {/* Add other screens in the Home stack if needed */}
-    </HomeStack.Navigator>
   );
 }
 
@@ -92,47 +70,12 @@ function HomeStack() {
         }}
       />
       <Stack.Screen
-        name="EventDetail"
-        component={EventDetail}
-        options={{
-          headerShown: false,
-        }}
-      />
-    </Stack.Navigator>
-  );
-}
-function AllEventStack() {
-  const Stack = createNativeStackNavigator();
-
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerStyle: { backgroundColor: "#7F57C4" },
-        headerTintColor: "#fff",
-        headerTitleStyle: { fontWeight: "bold" },
-      }}
-    >
-      {/* <Stack.Screen
-        name="OrganizerProfile"
-        component={Profile}
-        options={{
-          headerShown: false,
-        }}
-      /> */}
-      <Stack.Screen
-        name="eventUpload"
-        component={UploadEvents}
-        options={{
-          headerShown: false,
-        }}
-      />
-      {/* <Stack.Screen
         name="AllEvents"
         component={AllEvents}
         options={{
           headerShown: false,
         }}
-      /> */}
+      />
       <Stack.Screen
         name="EventDetail"
         component={EventDetail}
@@ -144,40 +87,45 @@ function AllEventStack() {
   );
 }
 
-export default function App() {
-  const Drawer = createDrawerNavigator();
-  const Stack = createNativeStackNavigator();
+function AppNavigator() {
+  const { authState } = useContext(AuthContext);
+  // const { loginSuccess } = authState;
 
-  const isAuthenticated = false;
+  const loginSuccess = true;
+  const isOrganizer = true;
+
+  const Drawer = createDrawerNavigator();
 
   return (
-    <AuthProvider>
-      <NavigationContainer>
-        {!isAuthenticated ? (
-          <Stack.Navigator>
-            <Stack.Screen
-              name="AuthFlow"
-              component={AuthStack}
-              options={{
-                headerShown: false,
-              }}
-            />
-          </Stack.Navigator>
-        ) : (
-          <Drawer.Navigator
-            // initialRouteName="Home"
-            drawerContentOptions={{
-              activeTintColor: "#e91e63",
-              itemStyle: { marginVertical: 10 },
-            }}
-          >
+    <NavigationContainer>
+      {!loginSuccess ? (
+        <AuthStack />
+      ) : (
+        <Drawer.Navigator
+          drawerContentOptions={{
+            activeTintColor: "#e91e63",
+            itemStyle: { marginVertical: 10 },
+          }}
+        >
+          {!isOrganizer ? (
             <Drawer.Screen name="EventSphere" component={HomeStack} />
-            {/* <Drawer.Screen name="Events" component={AllEventStack} /> */}
-            {/* <Drawer.Screen name="Profile" component={AllEventStack} />
-            <Drawer.Screen name="Upload Event" component={AllEventStack} /> */}
-          </Drawer.Navigator>
-        )}
-      </NavigationContainer>
+          ) : (
+            <>
+              {/* <Drawer.Screen name="Home" component={HomeStack} /> */}
+              {/* <Drawer.Screen name="Profile" component={Profile} /> */}
+              <Drawer.Screen name="UploadEvents" component={UploadEvents} />
+            </>
+          )}
+        </Drawer.Navigator>
+      )}
+    </NavigationContainer>
+  );
+}
+
+export default function App() {
+  return (
+    <AuthProvider>
+      <AppNavigator />
     </AuthProvider>
   );
 }
