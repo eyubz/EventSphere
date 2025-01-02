@@ -13,6 +13,7 @@ import EventDetail from "./screens/main/event_detail";
 import Profile from "./screens/organizer/profile";
 import UploadEvents from "./screens/organizer/uploadEvents";
 import { AuthProvider, AuthContext } from "./context/authContext";
+import { EventProvider } from "./context/eventContext";
 
 function AuthStack() {
   const Stack = createNativeStackNavigator();
@@ -125,7 +126,9 @@ function AppNavigator() {
 export default function App() {
   return (
     <AuthProvider>
-      <AppNavigator />
+      <EventProvider>
+        <AppNavigator />
+      </EventProvider>
     </AuthProvider>
   );
 }

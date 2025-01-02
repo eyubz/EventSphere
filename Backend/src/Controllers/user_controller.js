@@ -29,6 +29,18 @@ class UserController {
       res.status(400).json({ message: error.message });
     }
   };
+
+  UploadImage = async (req, res) => {
+    const userId = req.id;
+    const event = req.body;
+    const file = req.file;
+    try {
+      const message = await this.userService.UploadImage(userId, event, file);
+      res.status(200).json({ message });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  };
 }
 
 module.exports = UserController;

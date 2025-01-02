@@ -1,6 +1,7 @@
 class UserService {
-  constructor(userRepository) {
+  constructor(userRepository, eventRepository) {
     this.userRepository = userRepository;
+    this.eventRepository = eventRepository;
   }
 
   GetUserProfile = async (userId) => {
@@ -17,7 +18,7 @@ class UserService {
 
   UpdateUserProfile = async (userId, updatedUser, file) => {
     if (!userId || !updatedUser) {
-      throw new "user id required"();
+      throw new Error("user id required");
     }
     const { name, title, bio, location } = updatedUser;
     try {
@@ -30,6 +31,27 @@ class UserService {
       user.location = location || user.location;
       const updateUser = await this.userRepository.UpdateUser(user);
       return updateUser;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  UploadImage = async (userId, event, file) => {
+    if (!userId || !event) {
+      throw new Error("user id and event required");
+    }
+    try {
+      const imgUrl = file
+        ? `/uploads/${req.file.filename}`
+        : "https://via.placeholder.com/150";
+      event.image = imgUrl;
+
+      const insertedEvent = this.eventRepository.InsertEvent(event);
+      const user = await this.userRepository.UpdateUserEvents(
+        userId,
+        insertedEvent._id
+      );
+      return "Event created successfully";
     } catch (error) {
       throw error;
     }

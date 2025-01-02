@@ -52,6 +52,13 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "https://via.placeholder.com/150",
     },
+    events: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Event",
+        default: [],
+      },
+    ],
   },
   { timestamps: true }
 );

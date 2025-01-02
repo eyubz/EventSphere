@@ -4,13 +4,18 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
+  ActivityIndicator,
+  Alert,
 } from "react-native";
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import Icon from "react-native-vector-icons/Ionicons";
 import * as ImagePicker from "expo-image-picker";
+import { EventContext } from "../../context/eventContext";
 
 const UploadEvents = () => {
+  const { uploadEvent, eventState, resetEventState } = useContext(EventContext);
+  const { message, loading, success, error } = eventState;
   const [event, setEvent] = useState({
     organizer: "",
     name: "",
@@ -26,6 +31,32 @@ const UploadEvents = () => {
 
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
+
+  useEffect(() => {
+    if (success) {
+      Alert.alert(message);
+      resetForm();
+      resetEventState();
+    }
+    if (error) {
+      Alert.alert("Error", error);
+    }
+  }, [success, error, message, resetEventState]);
+
+  const resetForm = () => {
+    setEvent({
+      organizer: "",
+      name: "",
+      description: "",
+      date: null,
+      time: null,
+      location: "",
+      image: null,
+      type: "",
+      maxAttendees: "",
+      ticketPrice: "",
+    });
+  };
 
   const showDatePicker = () => setDatePickerVisibility(true);
   const hideDatePicker = () => setDatePickerVisibility(false);
@@ -51,7 +82,7 @@ const UploadEvents = () => {
   };
 
   const handleSubmit = () => {
-    console.log(event);
+    uploadEvent(event);
   };
 
   const handleImageUpload = async () => {
@@ -175,13 +206,22 @@ const UploadEvents = () => {
         </View>
       </TouchableOpacity>
 
-      <TouchableOpacity
-        onPress={handleSubmit}
-        className="bg-primaryPurple p-4 rounded-lg mt-6 flex-row items-center justify-center mb-10"
-      >
-        <Icon name="cloud-upload" size={24} color="#FFFFFF" className="mr-2" />
-        <Text className="text-white text-xl">Submit Event</Text>
-      </TouchableOpacity>
+      {loading ? (
+        <ActivityIndicator size="large" color="#7E57C2" />
+      ) : (
+        <TouchableOpacity
+          onPress={handleSubmit}
+          className="bg-primaryPurple p-4 rounded-lg mt-6 flex-row items-center justify-center mb-10"
+        >
+          <Icon
+            name="cloud-upload"
+            size={24}
+            color="#FFFFFF"
+            className="mr-2"
+          />
+          <Text className="text-white text-xl">Submit Event</Text>
+        </TouchableOpacity>
+      )}
 
       <DateTimePickerModal
         isVisible={isDatePickerVisible}

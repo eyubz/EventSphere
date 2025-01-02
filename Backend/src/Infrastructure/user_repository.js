@@ -35,6 +35,17 @@ class UserRepository {
       throw error;
     }
   };
+
+  UpdateUserEvents = async (userId, eventId) => {
+    try {
+      const user = await this.userModel.findOne({ _id: userId });
+      user.events.push(eventId);
+      await user.save();
+      return user;
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 module.exports = UserRepository;
