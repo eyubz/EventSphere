@@ -53,9 +53,9 @@ const UploadedEvents = () => {
     setVisibleEvents(nextEvents);
   };
 
-  useEffect(() => {
-    fetchEvents();
-  }, []);
+  // useEffect(() => {
+  //   fetchEvents();
+  // }, []);
 
   return (
     <ScrollView>

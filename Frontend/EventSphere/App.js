@@ -15,6 +15,9 @@ import UploadEvents from "./screens/organizer/uploadEvents";
 import { AuthProvider, AuthContext } from "./context/authContext";
 import { EventProvider } from "./context/eventContext";
 import UploadedEvents from "./screens/organizer/uploadedEvents";
+import RsvpEvents from "./screens/user/rsvpEvents";
+import SavedEvents from "./screens/user/savedEvents";
+import Notification from "./screens/user/notification";
 
 function AuthStack() {
   const Stack = createNativeStackNavigator();
@@ -94,7 +97,7 @@ function AppNavigator() {
   // const { loginSuccess } = authState;
 
   const loginSuccess = true;
-  const isOrganizer = true;
+  const isOrganizer = false;
 
   const Drawer = createDrawerNavigator();
 
@@ -110,12 +113,18 @@ function AppNavigator() {
           }}
         >
           {!isOrganizer ? (
-            <Drawer.Screen name="EventSphere" component={HomeStack} />
+            <>
+              <Drawer.Screen name="EventSphere" component={HomeStack} />
+              <Drawer.Screen name="Profile" component={Profile} />
+              <Drawer.Screen name="RSVP" component={RsvpEvents} />
+              <Drawer.Screen name="Saved" component={SavedEvents} />
+              <Drawer.Screen name="Notification" component={Notification} />
+            </>
           ) : (
             <>
-              {/* <Drawer.Screen name="Home" component={HomeStack} />
+              <Drawer.Screen name="Home" component={HomeStack} />
               <Drawer.Screen name="Profile" component={Profile} />
-              <Drawer.Screen name="UploadEvents" component={UploadEvents} /> */}
+              <Drawer.Screen name="UploadEvents" component={UploadEvents} />
               <Drawer.Screen name="UploadedEvents" component={UploadedEvents} />
             </>
           )}
