@@ -112,7 +112,7 @@ const AllEvents = ({ navigation }) => {
     <ScrollView>
       <View className="bg-white">
         <View>
-          <Text className="text-2xl font-bold text-gray-800 ml-4 mt-4">
+          <Text className="text-2xl font-bold text-primary ml-4 mt-4 ">
             All Events
           </Text>
         </View>
@@ -125,7 +125,7 @@ const AllEvents = ({ navigation }) => {
             <FilterSection />
           </View>
         </View>
-        <View className="flex flex-row flex-wrap justify-center items-center p-0.5">
+        <View className="flex flex-row flex-wrap justify-center items-center mb-2">
           {data.map((event, index) => {
             return (
               <TouchableOpacity

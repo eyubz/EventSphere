@@ -1,32 +1,33 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 
-const EventCard = ({ image, name, date, location, time, participant }) => {
+const EventCard = ({ image, name, date, location, time, onPress }) => {
   return (
-    <View className="rounded-lg shadow-lg bg-white border border-primaryPurple ml-2 mb-2">
-      <Image
-        source={image}
-        className="rounded-lg mb-4"
-        style={{ width: "100%", height: 150 }}
-      />
+    <TouchableOpacity onPress={onPress}>
+      <View className="bg-white rounded-xl shadow-lg border border-gray-200 m-2 overflow-hidden mr-2 mb-2">
+        <Image
+          source={image}
+          style={{ width: "100%", height: 180 }}
+          className="object-cover"
+        />
 
-      <View className="space-y-2 p-2">
-        <Text className="text-lg font-bold text-primaryPurple">{name}</Text>
-        <View className="flex-row justify-around">
-          <Text className="text-sm text-gray-500">{date}</Text>
-          <Text className="text-sm text-gray-700">{time}</Text>
+        <View className="p-4 space-y-3">
+          <Text className="text-xl font-bold text-primaryPurple truncate">
+            {name}
+          </Text>
+
+          <View className="flex-row justify-between items-center">
+            <Text className="text-sm text-gray-600">📅 {date}</Text>
+            <Text className="text-sm text-gray-600 ml-2">⏰ {time}</Text>
+          </View>
+
+          <View className="flex-row items-start">
+            <Text className="text-sm text-gray-700 ml-1 flex-1">
+              📍 {location}
+            </Text>
+          </View>
         </View>
-
-        <Text className="text-sm text-gray-700">
-          <Text className="font-semibold">Location: </Text>
-          {location}
-        </Text>
-
-        <Text className="text-sm text-gray-700">
-          <Text className="font-semibold">Participants: </Text>
-          {participant}
-        </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
