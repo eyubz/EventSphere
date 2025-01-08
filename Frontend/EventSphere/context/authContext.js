@@ -1,11 +1,9 @@
 import React, { createContext, useState, useEffect } from "react";
-import SecureStorage from "react-native-secure-storage";
 import axios from "axios";
 
 const API_URL = "http://192.168.43.168:5000/api/v1";
 
 export const AuthContext = createContext();
-
 export const AuthProvider = ({ children }) => {
   const [authState, setAuthState] = useState({
     email: "",
@@ -19,6 +17,7 @@ export const AuthProvider = ({ children }) => {
     refreshToken: null,
     success: false,
     isOrganizer: false,
+    userData: null,
   });
 
   const signUp = async (data) => {
@@ -89,6 +88,28 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const getProfile = async () => {
+    setAuthState({ ...authState, loading: true, error: null });
+    try {
+      const response = await api.get(`${API_URL}/profile`, {
+        headers: {
+          Authorization: `Bearer ${authState.accessToken}`,
+        },
+      });
+      setAuthState({
+        ...authState,
+        loading: false,
+        userData: response.data,
+      });
+    } catch (error) {
+      setAuthState({
+        ...authState,
+        loading: false,
+        error: error.response.data.message,
+      });
+    }
+  };
+
   const resetInitialState = () => {
     setAuthState({
       email: "",
@@ -110,6 +131,7 @@ export const AuthProvider = ({ children }) => {
         loginUser,
         verifyEmail,
         resetInitialState,
+        getProfile,
         setEmail: (email) => setAuthState({ ...authState, email }),
       }}
     >

@@ -27,6 +27,7 @@ const EditableFields = ({ profile, setProfile, isEditing, setIsEditing }) => {
       }
     );
   };
+
   return (
     <View className="flex-1 bg-gray-100 p-6">
       <View className="flex-row items-center mb-6">
