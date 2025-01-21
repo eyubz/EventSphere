@@ -14,7 +14,11 @@ const userService = new UserService(userRepository);
 const userController = new UserController(userService, eventRepository);
 
 route.get("/profile", userController.GetUserProfile);
-route.put("/profile", upload.single("image"), userController.UpdateUserProfile);
+route.post(
+  "/profile",
+  upload.single("image"),
+  userController.UpdateUserProfile
+);
 route.post("/event", upload.single("image"), userController.UploadImage);
 
 module.exports = route;

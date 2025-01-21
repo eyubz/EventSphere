@@ -2,7 +2,7 @@ import { View, Text, Image, TouchableOpacity, TextInput } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { launchImageLibrary } from "react-native-image-picker";
 
-const EditableFields = ({ profile, setProfile, isEditing, setIsEditing }) => {
+const EditableFields = ({ profile, setProfile, isEditing, handleSubmit }) => {
   const handleChange = (field, value) => {
     setProfile((prevProfile) => ({
       ...prevProfile,
@@ -33,7 +33,7 @@ const EditableFields = ({ profile, setProfile, isEditing, setIsEditing }) => {
       <View className="flex-row items-center mb-6">
         <TouchableOpacity onPress={handleImageUpload} disabled={!isEditing}>
           <Image
-            source={profile.image}
+            source={require("../../assets/person/person.jpg")}
             className="w-32 h-32 rounded-full border-4 border-primaryPurple mr-6"
           />
         </TouchableOpacity>
@@ -97,12 +97,7 @@ const EditableFields = ({ profile, setProfile, isEditing, setIsEditing }) => {
 
       <TouchableOpacity
         className="bg-primaryPurple p-3 rounded-full mt-6 flex-row items-center justify-center"
-        onPress={() => {
-          if (isEditing) {
-            console.log("Profile updated:", profile);
-          }
-          setIsEditing(!isEditing);
-        }}
+        onPress={handleSubmit}
       >
         <Icon name={"checkmark"} size={20} color="#fff" />
         <Text className="text-white ml-2">{"Save Changes"}</Text>

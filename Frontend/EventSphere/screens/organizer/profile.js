@@ -4,20 +4,26 @@ import EditableFields from "./editProfile";
 import { AuthContext } from "../../context/authContext";
 
 const Profile = () => {
-  const { getProfile, userData } = useContext(AuthContext);
-  const [profile, setProfile] = useState(
-    userData || {
-      name: "John Doe",
-      title: "Software Engineer",
-      bio: "Passionate about coding, problem-solving, and building impactful projects. I love exploring new technologies and collaborating with diverse teams.",
-      location: "San Francisco, CA",
-      image: require("../../assets/person/person.jpg"),
-    }
+  const { getProfile, userData, setProfile } = useContext(AuthContext);
+  const [profile, setProfileDetail] = useState(
+    userData
+    // || {
+    //   name: "John Doe",
+    //   title: "Software Engineer",
+    //   bio: "Passionate about coding, problem-solving, and building impactful projects. I love exploring new technologies and collaborating with diverse teams.",
+    //   location: "San Francisco, CA",
+    //   image: require("../../assets/person/person.jpg"),
+    // }
   );
 
   useEffect(() => {
     getProfile();
   }, []);
+
+  const handleSubmit = () => {
+    setProfile();
+    setIsEditing(!isEditing);
+  };
 
   const [isEditing, setIsEditing] = useState(false);
 
@@ -26,9 +32,9 @@ const Profile = () => {
       {isEditing ? (
         <EditableFields
           profile={profile}
-          setProfile={setProfile}
+          setProfile={setProfileDetail}
           isEditing={isEditing}
-          setIsEditing={setIsEditing}
+          handleSubmit={handleSubmit}
         />
       ) : (
         <NormalFields

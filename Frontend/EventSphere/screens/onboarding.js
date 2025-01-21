@@ -75,7 +75,7 @@ const Onboarding = () => {
         {currentIndex === slides.length - 1 ? (
           <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
             <Text className="bg-primaryPurple p-4 text-white text-2xl rounded-lg">
-              🎉 aGet Started 🎉
+              🎉 Get Started 🎉
             </Text>
           </TouchableOpacity>
         ) : (

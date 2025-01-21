@@ -91,7 +91,29 @@ export const AuthProvider = ({ children }) => {
   const getProfile = async () => {
     setAuthState({ ...authState, loading: true, error: null });
     try {
-      const response = await api.get(`${API_URL}/profile`, {
+      const response = await axios.get(`${API_URL}/profile`, {
+        headers: {
+          Authorization: `Bearer ${authState.accessToken}`,
+        },
+      });
+      setAuthState({
+        ...authState,
+        loading: false,
+        userData: response.data,
+      });
+    } catch (error) {
+      setAuthState({
+        ...authState,
+        loading: false,
+        error: error.response.data.message,
+      });
+    }
+  };
+
+  const setProfile = async () => {
+    setAuthState({ ...authState, loading: true, error: null });
+    try {
+      const response = await axios.post(`${API_URL}/profile`, {
         headers: {
           Authorization: `Bearer ${authState.accessToken}`,
         },
