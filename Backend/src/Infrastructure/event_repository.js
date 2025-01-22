@@ -31,6 +31,19 @@ class EventRepository {
       throw error;
     }
   };
+
+  RsvpEvent = async (id) => {
+    console.log(id);
+    try {
+      const events = await this.eventModel.updateOne(
+        { _id: id },
+        { $inc: { rsvpCount: 1 } }
+      );
+      return events;
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
 }
 
 module.exports = EventRepository;

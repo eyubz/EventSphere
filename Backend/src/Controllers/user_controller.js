@@ -77,6 +77,18 @@ class UserController {
       res.status(400).json({ message: error.message });
     }
   };
+
+  RsvpEvent = async (req, res) => {
+    try {
+      const id = req.params.id;
+      const userId = req.id;
+      const events = await this.userService.RsvpEvent(userId, id);
+      res.status(200).json({ events });
+    } catch (error) {
+      console.log(error);
+      res.status(400).json({ message: error.message });
+    }
+  };
 }
 
 module.exports = UserController;

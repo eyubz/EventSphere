@@ -14,6 +14,7 @@ export const EventProvider = ({ children }) => {
     success: false,
     message: "",
     allEvents: [],
+    rsvp: [],
   });
 
   const fetchEvents = async () => {
@@ -108,6 +109,26 @@ export const EventProvider = ({ children }) => {
     }
   };
 
+  const saveRsvp = async (id) => {
+    setEventState({ ...eventState, loading: true, error: null });
+    try {
+      const response = await api.get(`${API_URL}/events/rsvp/${id}`);
+      setEventState({
+        ...eventState,
+        loading: false,
+        rsvp: response.data.events,
+        message: response.data.message,
+      });
+    } catch (error) {
+      console.log("Error", error);
+      setEventState({
+        ...eventState,
+        loading: false,
+        error: error.response?.data?.message || "An error occurred",
+      });
+    }
+  };
+
   const resetEventState = () => {
     setEventState({
       events: [],
@@ -126,6 +147,7 @@ export const EventProvider = ({ children }) => {
         updateEvent,
         deleteEvent,
         resetEventState,
+        saveRsvp,
       }}
     >
       {children}

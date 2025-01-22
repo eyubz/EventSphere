@@ -1,13 +1,49 @@
 import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
+import { EventContext } from "../../context/eventContext";
+import { useContext, useEffect, useState } from "react";
 
 const EventDetail = ({ route }) => {
+  const { saveRsvp } = useContext(EventContext);
   const event = route.params;
+
+  const formatDate = (dateString) => {
+    try {
+      const date = new Date(dateString);
+      return new Intl.DateTimeFormat("en-US", {
+        weekday: "short",
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      }).format(date);
+    } catch (error) {
+      console.error("Invalid date format:", dateString);
+      return dateString;
+    }
+  };
+  const formatTime = (timeString) => {
+    try {
+      const time = new Date(timeString);
+      return new Intl.DateTimeFormat("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+      }).format(time);
+    } catch (error) {
+      console.error("Invalid time format:", timeString);
+      return timeString;
+    }
+  };
+
+  const handleRsvp = () => {
+    saveRsvp(event._id);
+  };
 
   return (
     <ScrollView className="bg-gray-100 shadow-2xl">
       <Image
-        source={event.image}
+        source={require("../../assets/events/event2.jpg")}
         className="w-full h-64 rounded-xl mb-6 border-2 border-gray-300"
         resizeMode="cover"
       />
@@ -23,20 +59,26 @@ const EventDetail = ({ route }) => {
         <View className="flex-row items-center mb-2 justify-between">
           <View className="flex-row justify-center items-center">
             <Icon name="calendar-outline" size={20} color="#7E57C2" />
-            <Text className="text-lg text-gray-600 ml-2">{event.date}</Text>
+            <Text className="text-lg text-gray-600 ml-2">
+              {formatDate(event.date)}
+            </Text>
           </View>
           <View className="flex-row justify-center items-center">
             <Icon name="time-outline" size={20} color="#7E57C2" />
-            <Text className="text-lg text-gray-600 ml-2">{event.time}</Text>
+            <Text className="text-lg text-gray-600 ml-2">
+              {formatTime(event.time)}
+            </Text>
           </View>
         </View>
 
         <View className="flex-row items-center mb-2 justify-between">
           <View className="flex-row justify-center items-center">
             <Text className="text-lg text-primaryPurple">
-              🎉 Organized by{event.organizer}
+              🎉 Organized by {event.organizer}
             </Text>
           </View>
+        </View>
+        <View className="flex-row items-center mb-2 justify-between">
           <View className="flex-row justify-center items-center">
             <Icon name="location-outline" size={20} color="#7E57C2" />
             <Text className="text-lg text-gray-600 ml-2">{event.location}</Text>
@@ -46,7 +88,7 @@ const EventDetail = ({ route }) => {
         <View className="flex-row items-center mb-4">
           <Icon name="people-outline" size={20} color="#7E57C2" />
           <Text className="text-lg text-gray-600 ml-2">
-            {event.participant}
+            {event.participant || <Text>None</Text>}
           </Text>
         </View>
 
@@ -71,7 +113,7 @@ const EventDetail = ({ route }) => {
         <View className="flex-row justify-between p-4 mb-5">
           <TouchableOpacity
             className="bg-primaryPurple p-3 rounded-lg flex-1 mr-2 items-center justify-center flex-row gap-2"
-            onPress={() => console.log("RSVP clicked")}
+            onPress={handleRsvp}
           >
             <Icon name="calendar-outline" size={20} color="#fff" />
             <Text className="text-white text-lg font-bold">RSVP</Text>

@@ -94,11 +94,11 @@ function HomeStack() {
 }
 
 function AppNavigator() {
-  // const { authState } = useContext(AuthContext);
-  // const { loginSuccess, isOrganizer } = authState;
+  const { authState } = useContext(AuthContext);
+  const { loginSuccess, isOrganizer } = authState;
 
-  const loginSuccess = true;
-  const isOrganizer = false;
+  // const loginSuccess = true;
+  // const isOrganizer = false;
 
   const Drawer = createDrawerNavigator();
 

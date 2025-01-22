@@ -102,6 +102,20 @@ class UserService {
       throw error;
     }
   };
+
+  RsvpEvent = async (userId, id) => {
+    if (!userId || !id) {
+      throw new Error("user id and event required");
+    }
+    try {
+      const insertedEvent = await this.eventRepository.RsvpEvent(id);
+
+      const user = await this.userRepository.UpdateUserEvents(userId, id);
+      return "Event responded successfully.";
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 module.exports = UserService;

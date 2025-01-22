@@ -45,14 +45,6 @@ const EventCard = ({ image, name, date, location, time }) => {
         <View className="flex-row justify-between items-center p-2">
           <Text className="text-sm text-gray-600">📅 {formatDate(date)}</Text>
         </View>
-        <View className="flex-row justify-between items-center p-2">
-          <Text className="text-sm text-gray-600 ml-2">
-            ⏰ {formatTime(time)}
-          </Text>
-        </View>
-        <View className="flex-row justify-between items-center p-2">
-          <Text className="text-sm text-gray-600 ml-2">📍 {location}</Text>
-        </View>
       </View>
     </View>
   );
