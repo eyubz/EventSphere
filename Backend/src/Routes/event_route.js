@@ -22,5 +22,6 @@ route.post(
 route.get("", AuthMiddleWare, userController.GetEvents);
 route.get("/all", userController.GetAllEvents);
 route.get("/rsvp/:id", AuthMiddleWare, userController.RsvpEvent);
+route.get("/save/:id", AuthMiddleWare, userController.SaveEvent);
 
 module.exports = route;

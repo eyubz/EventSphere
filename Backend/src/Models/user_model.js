@@ -58,6 +58,12 @@ const userSchema = new mongoose.Schema(
         ref: "Event",
       },
     ],
+    saved: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Event",
+      },
+    ],
   },
   { timestamps: true }
 );

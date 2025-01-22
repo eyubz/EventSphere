@@ -116,6 +116,20 @@ class UserService {
       throw error;
     }
   };
+
+  SavedEvent = async (userId, id) => {
+    if (!userId || !id) {
+      throw new Error("user id and event required");
+    }
+    try {
+      const insertedEvent = await this.eventRepository.SavedEvent(id);
+
+      const user = await this.userRepository.UpdateSavedEvents(userId, id);
+      return "Event responded successfully.";
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 module.exports = UserService;

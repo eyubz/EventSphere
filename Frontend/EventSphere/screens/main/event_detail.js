@@ -1,10 +1,17 @@
-import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { EventContext } from "../../context/eventContext";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 
 const EventDetail = ({ route }) => {
-  const { saveRsvp } = useContext(EventContext);
+  const { saveRsvp, savedEvent } = useContext(EventContext);
   const event = route.params;
 
   const formatDate = (dateString) => {
@@ -38,6 +45,12 @@ const EventDetail = ({ route }) => {
 
   const handleRsvp = () => {
     saveRsvp(event._id);
+    Alert.alert("Success", "RSVP saved successfully");
+  };
+
+  const handleSaved = () => {
+    savedEvent(event._id);
+    Alert.alert("Success", "Event saved successfully");
   };
 
   return (

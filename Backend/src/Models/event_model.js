@@ -25,6 +25,10 @@ const eventSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    savedCount: {
+      type: Number,
+      default: 0,
+    },
     organizer: {
       type: String,
     },
