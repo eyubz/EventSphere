@@ -101,6 +101,28 @@ class UserController {
       res.status(400).json({ message: error.message });
     }
   };
+
+  GetRsvpEvent = async (req, res) => {
+    try {
+      const userId = req.id;
+      const events = await this.userService.GetRsvpEvent(userId);
+      res.status(200).json({ events });
+    } catch (error) {
+      console.log(error);
+      res.status(400).json({ message: error.message });
+    }
+  };
+
+  GetSavedEvent = async (req, res) => {
+    try {
+      const userId = req.id;
+      const events = await this.userService.GetSavedEvent(userId);
+      res.status(200).json({ events });
+    } catch (error) {
+      console.log(error);
+      res.status(400).json({ message: error.message });
+    }
+  };
 }
 
 module.exports = UserController;

@@ -55,6 +55,30 @@ class EventRepository {
       throw new Error(error);
     }
   };
+
+  GetRsvpEvents = async (eventIds) => {
+    try {
+      const events = await this.eventModel.find(
+        { _id: { $in: eventIds } },
+        "image name date location"
+      );
+      return events;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  GetSavedEvents = async (eventIds) => {
+    try {
+      const events = await this.eventModel.find(
+        { _id: { $in: eventIds } },
+        "image name date location"
+      );
+      return events;
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 module.exports = EventRepository;

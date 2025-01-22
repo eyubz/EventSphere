@@ -130,6 +130,31 @@ class UserService {
       throw error;
     }
   };
+
+  GetRsvpEvent = async (userId) => {
+    if (!userId) {
+      throw new Error("user id required");
+    }
+    try {
+      const user = await this.userRepository.FindUserById(userId);
+      const events = await this.eventRepository.GetRsvpEvents(user.events);
+      return events;
+    } catch (error) {
+      throw error;
+    }
+  };
+  GetSavedEvent = async (userId) => {
+    if (!userId) {
+      throw new Error("user id required");
+    }
+    try {
+      const user = await this.userRepository.FindUserById(userId);
+      const events = await this.eventRepository.GetSavedEvents(user.saved);
+      return events;
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 module.exports = UserService;
