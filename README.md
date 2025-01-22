@@ -4,37 +4,42 @@ A React Native application for managing events, including uploading events, RSVP
 
 ## Features
 
-1.  **Uploaded Events**
+1.  **Uploading Events**
 
-    - Users can view their uploaded events.
-    - Show a list of events with pagination and "Show More" functionality.
-    - Each event includes details like name, date, and RSVP count.
+    - Event organizers can upload event by filling out the details.
 
-2.  **RSVP Events**
+2.  **View Uploaded Events**
 
-    - Users can view a list of events they've RSVP’d to.
-    - Displays event details, including name, date, and location.
+    - Event organizer can view their uploaded events.
 
-3.  **Notifications**
+3.  **Edit Profile details**
 
-    - A notification center with a bell icon for aesthetics.
-    - Placeholder for future notification features.
+    - Both event organizers and attendees can update their profile detail.
 
-4.  **Reusable Components**
+4.  **RSVP Events**
 
-    - **UploadCard**: A customizable card for displaying event details.
-    - Bell icon for notification aesthetics.
+    - Attendees can respond to events.
+
+5.  **View RSVP and saved Events**
+
+    - Attendees can view events they have responded to and also saved events.
+
+6.  **Notifications**
+
+    - Attendees will get notification for their events.
 
 ## Tech Stack
 
 - **Frontend**: React Native
-- **State Management**: Context API
+- **Backend**: NodeJs
+- **Database**: MongoDB
+- **State Management**: Context API, Redux
 - **Styling**: TailwindCSS (React Native ClassNames)
-- **Icons**: @expo/vector-icons
 
 ## Folder Structure
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`  bashCopyEditsrc/  ├── components/  │   ├── UploadCard.js       # Component for displaying event cards  │   ├── Notification.js     # Notification screen with a bell icon  │  ├── screens/  │   ├── UploadedEvents.js   # Screen for viewing uploaded events  │   ├── RsvpEvents.js       # Screen for viewing RSVP'd events  │  ├── context/  │   ├── eventContext.js     # Event management state and actions  │  ├── assets/  │   └── events/             # Static assets for events (e.g., images)  │  └── App.js                  # Main entry point for the app  `
+`bashCopy
+ Editsrc/  ├── components/  │   ├── UploadCard.js       # Component for displaying event cards  │   ├── Notification.js     # Notification screen with a bell icon  │  ├── screens/  │   ├── UploadedEvents.js   # Screen for viewing uploaded events  │   ├── RsvpEvents.js       # Screen for viewing RSVP'd events  │  ├── context/  │   ├── eventContext.js     # Event management state and actions  │  ├── assets/  │   └── events/             # Static assets for events (e.g., images)  │  └── App.js                  # Main entry point for the app`
 
 ## Installation and Setup
 
