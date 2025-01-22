@@ -7,7 +7,7 @@ class UserController {
     const userId = req.id;
     try {
       const user = await this.userService.GetUserProfile(userId);
-      console.log(user);
+      console.log("The User", user);
       res.status(200).json({ user });
     } catch (error) {
       res.status(400).json({ message: error.message });
@@ -49,6 +49,19 @@ class UserController {
       const events = await this.userService.GetEvents(userId);
       res.status(200).json({ events });
     } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  };
+
+  UploadEvent = async (req, res) => {
+    const userId = req.id;
+    const event = req.body;
+    const file = req.file;
+    try {
+      const message = await this.userService.UploadEvent(userId, event, file);
+      res.status(200).json({ message });
+    } catch (error) {
+      console.log(error);
       res.status(400).json({ message: error.message });
     }
   };

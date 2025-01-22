@@ -26,6 +26,7 @@ export const EventProvider = ({ children }) => {
         message: response.data.message,
       });
     } catch (error) {
+      console.log("Error", error);
       setEventState({
         ...eventState,
         loading: false,

@@ -24,6 +24,15 @@ class EventRepository {
       throw error;
     }
   };
+  UploadEvent = async (eventData) => {
+    try {
+      const newEvent = new this.eventModel(eventData);
+      await newEvent.save();
+      return newEvent;
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 module.exports = EventRepository;

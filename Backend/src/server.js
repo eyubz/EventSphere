@@ -40,7 +40,7 @@ app.use(bodyParser.json());
 app.use("/api/v1/auth", auth_route);
 app.use("/api/v1/refresh", refresh_route);
 app.use("/api/v1/user", AuthMiddleWare, user_route);
-app.use("/api/v1/event", AuthMiddleWare, event_route);
+app.use("/api/v1/events", AuthMiddleWare, event_route);
 
 connectDb();
 

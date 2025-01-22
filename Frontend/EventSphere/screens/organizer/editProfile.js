@@ -2,7 +2,7 @@ import { View, Text, Image, TouchableOpacity, TextInput } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { launchImageLibrary } from "react-native-image-picker";
 
-const EditableFields = ({ profile, setProfile, isEditing, handleSubmit }) => {
+const EditableFields = ({ profile, isEditing, setIsEditing, setProfile }) => {
   const handleChange = (field, value) => {
     setProfile((prevProfile) => ({
       ...prevProfile,
@@ -26,6 +26,11 @@ const EditableFields = ({ profile, setProfile, isEditing, handleSubmit }) => {
         }
       }
     );
+  };
+
+  const handleSubmit = () => {
+    setIsEditing(!isEditing);
+    setProfile(profile);
   };
 
   return (

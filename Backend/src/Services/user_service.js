@@ -32,6 +32,7 @@ class UserService {
       const updateUser = await this.userRepository.UpdateUser(user);
       return updateUser;
     } catch (error) {
+      console.log("Error, service", error);
       throw error;
     }
   };
@@ -65,6 +66,27 @@ class UserService {
       const user = await this.userRepository.FindUserById(userId);
       const events = await this.eventRepository.GetEvents(user.events);
       return events;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  UploadEvent = async (userId, event, file) => {
+    if (!userId || !event) {
+      throw new Error("user id and event required");
+    }
+    try {
+      const imgUrl = file
+        ? `/uploads/${req.file.filename}`
+        : "https://via.placeholder.com/150";
+      event.image = imgUrl;
+
+      const insertedEvent = this.eventRepository.InsertEvent(event);
+      const user = await this.userRepository.UpdateUserEvents(
+        userId,
+        insertedEvent._id
+      );
+      return "Event created successfully";
     } catch (error) {
       throw error;
     }

@@ -21,6 +21,7 @@ const AuthenticationMiddleware = (req, res, next) => {
     req.id = decoded.id;
     next();
   } catch (err) {
+    console.log(err);
     res.status(403).json({ message: "Invalid or expired token" });
   }
 };
