@@ -5,7 +5,7 @@ import { AuthContext } from "../../context/authContext";
 import { launchImageLibrary } from "react-native-image-picker";
 
 const Profile = () => {
-  const { authState, getProfile } = useContext(AuthContext);
+  const { authState, getProfile, setProfile } = useContext(AuthContext);
   const [profile, setProfileDetail] = useState({
     id: "",
     name: "",
@@ -60,8 +60,8 @@ const Profile = () => {
   };
   const handleSubmit = async () => {
     await setProfile(profile);
-    getProfile();
     setIsEditing(!isEditing);
+    getProfile();
   };
 
   return (
@@ -71,7 +71,7 @@ const Profile = () => {
           <View className="flex-row items-center mb-6">
             <TouchableOpacity onPress={handleImageUpload} disabled={!isEditing}>
               <Image
-                source={require("../../assets/person/person.jpg")}
+                source={require("../../assets/person/person.png")}
                 className="w-32 h-32 rounded-full border-4 border-primaryPurple mr-6"
               />
             </TouchableOpacity>

@@ -1,5 +1,6 @@
 import React, { createContext, useState } from "react";
 import useApi from "../api/api";
+import UploadedEvents from "../screens/organizer/uploadedEvents";
 
 const API_URL = "http://192.168.43.168:5000/api/v1";
 
@@ -16,6 +17,7 @@ export const EventProvider = ({ children }) => {
     allEvents: [],
     rsvp: [],
     saved: [],
+    uploadedEvents: [],
   });
 
   const fetchEvents = async () => {
@@ -26,6 +28,26 @@ export const EventProvider = ({ children }) => {
         ...eventState,
         loading: false,
         allEvents: response.data.events,
+        message: response.data.message,
+      });
+    } catch (error) {
+      console.log(error);
+      setEventState({
+        ...eventState,
+        loading: false,
+        error: error.response?.data?.message || "An error occurred",
+      });
+    }
+  };
+
+  const getEvents = async () => {
+    setEventState({ ...eventState, loading: true, error: null });
+    try {
+      const response = await api.get(`${API_URL}/events`);
+      setEventState({
+        ...eventState,
+        loading: false,
+        uploadedEvents: response.data.events,
         message: response.data.message,
       });
     } catch (error) {
@@ -169,6 +191,7 @@ export const EventProvider = ({ children }) => {
         resetEventState,
         saveRsvp,
         savedEvent,
+        getEvents,
       }}
     >
       {children}

@@ -134,7 +134,7 @@ const EventDetail = ({ route }) => {
 
           <TouchableOpacity
             className="bg-primary p-3 rounded-lg flex-1 items-center justify-center flex-row gap-2"
-            onPress={() => console.log("Save clicked")}
+            onPress={handleSaved}
           >
             <Icon name="save-outline" size={20} color="#fff" />
             <Text className="text-white text-lg font-bold">Save</Text>

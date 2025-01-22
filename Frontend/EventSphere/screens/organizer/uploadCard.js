@@ -22,14 +22,6 @@ const UploadCard = (prop) => {
       key={prop._id}
       className="bg-white shadow-lg rounded-xl p-4 flex flex-col"
     >
-      <Image
-        // source={prop.image || require("../../assets/events/event2.jpg")}
-        source={{ uri: ` http://192.168.43.168:5000${prop.image}` }}
-        // source={typeof img === "string" ? { uri: prop.img } : prop.img}
-        style={{ width: "100%", height: 150, borderRadius: 12 }}
-        className="mb-4"
-      />
-
       <Text className="text-2xl font-semibold text-primaryPurple mb-2">
         {prop.name}
       </Text>

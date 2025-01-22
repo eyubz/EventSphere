@@ -4,7 +4,7 @@ import UploadCard from "./uploadCard";
 import { EventContext } from "../../context/eventContext";
 
 const UploadedEvents = () => {
-  const { eventState, fetchEvents } = useContext(EventContext);
+  const { eventState, getEvents } = useContext(EventContext);
   const { events } = eventState;
 
   const [visibleEvents, setVisibleEvents] = useState([]);
@@ -18,11 +18,11 @@ const UploadedEvents = () => {
   };
 
   useEffect(() => {
-    fetchEvents();
+    getEvents();
   }, []);
 
   useEffect(() => {
-    setVisibleEvents(events.slice(0, 2));
+    setVisibleEvents(eventState.uploadedEvents.slice(0, 2));
   }, [events]);
 
   return (
