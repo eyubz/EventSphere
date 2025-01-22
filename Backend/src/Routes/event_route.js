@@ -7,13 +7,19 @@ const UserService = require("../Services/user_service");
 const userModel = require("../Models/user_model");
 const eventModel = require("../Models/event_model");
 const EventRepository = require("../Infrastructure/event_repository");
-
+const AuthMiddleWare = require("../Middleware/authMiddleware");
 const eventRepository = new EventRepository(eventModel);
 const userRepository = new UserRepository(userModel);
 const userService = new UserService(userRepository, eventRepository);
 const userController = new UserController(userService);
 
-route.post("", upload.single("image"), userController.UploadEvent);
-route.get("", userController.GetEvents);
+route.post(
+  "",
+  upload.single("image"),
+  AuthMiddleWare,
+  userController.UploadEvent
+);
+route.get("", AuthMiddleWare, userController.GetEvents);
+route.get("/all", userController.GetAllEvents);
 
 module.exports = route;

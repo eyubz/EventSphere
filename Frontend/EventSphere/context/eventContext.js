@@ -13,16 +13,17 @@ export const EventProvider = ({ children }) => {
     error: null,
     success: false,
     message: "",
+    allEvents: [],
   });
 
   const fetchEvents = async () => {
     setEventState({ ...eventState, loading: true, error: null });
     try {
-      const response = await api.get(`${API_URL}/events`);
+      const response = await api.get(`${API_URL}/events/all`);
       setEventState({
         ...eventState,
         loading: false,
-        events: response.data.events,
+        allEvents: response.data.events,
         message: response.data.message,
       });
     } catch (error) {

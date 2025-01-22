@@ -45,7 +45,6 @@ class UserController {
 
   GetEvents = async (req, res) => {
     const userId = req.id;
-    console.log("User ID", userId);
     try {
       const events = await this.userService.GetEvents(userId);
       console.log("Events", events);
@@ -63,6 +62,16 @@ class UserController {
     try {
       const message = await this.userService.UploadEvent(userId, event, file);
       res.status(200).json({ message });
+    } catch (error) {
+      console.log(error);
+      res.status(400).json({ message: error.message });
+    }
+  };
+
+  GetAllEvents = async (req, res) => {
+    try {
+      const events = await this.userService.GetAllEvents();
+      res.status(200).json({ events });
     } catch (error) {
       console.log(error);
       res.status(400).json({ message: error.message });

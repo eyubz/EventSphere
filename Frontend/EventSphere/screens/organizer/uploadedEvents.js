@@ -8,6 +8,7 @@ const UploadedEvents = () => {
   const { events } = eventState;
 
   const [visibleEvents, setVisibleEvents] = useState([]);
+  const img = require("../../assets/events/event2.jpg");
 
   const handleShowMore = () => {
     const currentLength = visibleEvents.length;
@@ -21,7 +22,6 @@ const UploadedEvents = () => {
   }, []);
 
   useEffect(() => {
-    console.log("Events fetched:", events);
     setVisibleEvents(events.slice(0, 2));
   }, [events]);
 
@@ -39,7 +39,7 @@ const UploadedEvents = () => {
         ) : (
           <View className="flex flex-wrap justify-center gap-6">
             {visibleEvents.map((event) => (
-              <UploadCard key={event._id} {...event} />
+              <UploadCard key={event._id} {...event} img={img} />
             ))}
           </View>
         )}

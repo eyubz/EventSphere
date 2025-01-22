@@ -5,8 +5,7 @@ import { AuthContext } from "../../context/authContext";
 import { launchImageLibrary } from "react-native-image-picker";
 
 const Profile = () => {
-  const { getProfile, authState, setProfile } = useContext(AuthContext);
-
+  const { authState, getProfile } = useContext(AuthContext);
   const [profile, setProfileDetail] = useState({
     id: "",
     name: "",

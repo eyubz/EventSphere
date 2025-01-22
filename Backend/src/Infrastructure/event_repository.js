@@ -23,6 +23,14 @@ class EventRepository {
       throw error;
     }
   };
+  GetAllEvents = async () => {
+    try {
+      const events = await this.eventModel.find();
+      return events;
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 module.exports = EventRepository;

@@ -1,5 +1,6 @@
 import { View, Text, FlatList } from "react-native";
 import EventCard from "../../components/eventCard";
+import { useState } from "react";
 
 const events = [
   {
@@ -26,6 +27,8 @@ const events = [
 ];
 
 const PopularEvent = ({ navigation }) => {
+  // const [events, setEvents] = useState(events);
+
   return (
     <View className="flex-1 bg-gray-50 p-4">
       <View className="flex-row justify-between items-center mb-4">

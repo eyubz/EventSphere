@@ -67,6 +67,7 @@ class UserService {
     try {
       const user = await this.userRepository.FindUserById(userId);
       const events = await this.eventRepository.GetEvents(user.events);
+
       return events;
     } catch (error) {
       throw error;
@@ -78,9 +79,7 @@ class UserService {
       throw new Error("user id and event required");
     }
     try {
-      const imgUrl = file
-        ? `/uploads/${req.file.filename}`
-        : "https://via.placeholder.com/150";
+      const imgUrl = "/uploads/event1.jpg";
       event.image = imgUrl;
 
       const insertedEvent = await this.eventRepository.UploadEvent(event);
@@ -90,6 +89,15 @@ class UserService {
         insertedEvent._id
       );
       return "Event created success fully";
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  GetAllEvents = async () => {
+    try {
+      const events = await this.eventRepository.GetAllEvents();
+      return events;
     } catch (error) {
       throw error;
     }

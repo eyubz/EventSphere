@@ -1,6 +1,6 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 
-const UploadCard = ({ id, name, date, image, rsvpCount }) => {
+const UploadCard = (prop) => {
   const formatDate = (dateString) => {
     try {
       const date = new Date(dateString);
@@ -15,24 +15,31 @@ const UploadCard = ({ id, name, date, image, rsvpCount }) => {
       return dateString;
     }
   };
+  console.log(`http://192.168.43.168:5000/api/v1${prop.image}`);
+
   return (
-    <View key={id} className="bg-white shadow-lg rounded-xl p-4 flex flex-col">
+    <View
+      key={prop._id}
+      className="bg-white shadow-lg rounded-xl p-4 flex flex-col"
+    >
       <Image
-        source={require("../../assets/events/event1.jpg")}
+        // source={prop.image || require("../../assets/events/event2.jpg")}
+        source={{ uri: ` http://192.168.43.168:5000${prop.image}` }}
+        // source={typeof img === "string" ? { uri: prop.img } : prop.img}
         style={{ width: "100%", height: 150, borderRadius: 12 }}
         className="mb-4"
       />
 
       <Text className="text-2xl font-semibold text-primaryPurple mb-2">
-        {name}
+        {prop.name}
       </Text>
 
       <Text className="text-gray-600 text-sm mb-1">
-        📅 Date: {formatDate(date)}
+        📅 Date: {formatDate(prop.date)}
       </Text>
 
       <Text className="text-gray-600 text-sm mb-4">
-        👥 RSVP Count: {rsvpCount}
+        👥 RSVP Count: {prop.rsvpCount}
       </Text>
 
       <View className="flex flex-row justify-between mt-auto">
