@@ -1,32 +1,19 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import { View, Text, Image, ScrollView } from "react-native";
-
-const events = [
-  {
-    id: "1",
-    name: "Concert by The Beach",
-    date: "2025-01-10",
-    location: "Beachfront Arena",
-    image: require("../../assets/events/event1.jpg"),
-  },
-  {
-    id: "2",
-    name: "Tech Conference 2025",
-    date: "2025-02-15",
-    location: "Tech Convention Center",
-    image: require("../../assets/events/event2.jpg"),
-  },
-  {
-    id: "3",
-    name: "Outdoor Hiking Trip",
-    date: "2025-03-20",
-    location: "Mountain View Park",
-    image: require("../../assets/events/event1.jpg"),
-  },
-];
+import { EventContext } from "../../context/eventContext";
 
 const SavedEvents = () => {
-  const [rsvpList, setRsvpList] = useState(events);
+  const { eventState, getSaved } = useContext(EventContext);
+
+  const [savedList, setSavedList] = useState([]);
+
+  useEffect(() => {
+    getSaved();
+  }, []);
+
+  useEffect(() => {
+    setSavedList(eventState.saved);
+  }, [eventState]);
 
   return (
     <ScrollView className="flex-1 bg-gray-100 p-4">
@@ -34,13 +21,13 @@ const SavedEvents = () => {
         Saved Events
       </Text>
       <View className="space-y-6">
-        {rsvpList.map((item) => (
+        {savedList.map((item) => (
           <View
             key={item.id}
             className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow"
           >
             <Image
-              source={item.image}
+              source={require("../../assets/events/event2.jpg")}
               className="w-full h-48 rounded-lg mb-4"
             />
             <Text className="text-xl font-semibold text-primaryPurple mb-2">
