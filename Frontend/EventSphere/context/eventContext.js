@@ -19,14 +19,14 @@ export const EventProvider = ({ children }) => {
     setEventState({ ...eventState, loading: true, error: null });
     try {
       const response = await api.get(`${API_URL}/events`);
-      setEventStates({
+      setEventState({
         ...eventState,
         loading: false,
-        events: response.data,
+        events: response.data.events,
         message: response.data.message,
       });
     } catch (error) {
-      console.log("Error", error);
+      console.log(error);
       setEventState({
         ...eventState,
         loading: false,
@@ -47,11 +47,13 @@ export const EventProvider = ({ children }) => {
         ...prevState,
         loading: false,
         success: true,
+        message: "Event uploaded successfully",
       }));
     } catch (error) {
       setEventState({
         ...eventState,
         loading: false,
+        success: false,
         error: error.response?.data?.message || "An error occurred",
       });
     }

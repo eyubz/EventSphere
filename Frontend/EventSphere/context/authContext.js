@@ -133,6 +133,19 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const logout = async () => {
+    setAuthState({
+      email: "",
+      verificationSuccess: false,
+      loading: false,
+      error: null,
+      loginSuccess: false,
+      accessToken: null,
+      refreshToken: null,
+      success: false,
+    });
+  };
+
   const resetInitialState = () => {
     setAuthState({
       email: "",
@@ -156,6 +169,7 @@ export const AuthProvider = ({ children }) => {
         resetInitialState,
         getProfile,
         setProfile,
+        logout,
         setEmail: (email) => setAuthState({ ...authState, email }),
       }}
     >

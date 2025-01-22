@@ -6,56 +6,24 @@ import { EventContext } from "../../context/eventContext";
 const UploadedEvents = () => {
   const { eventState, fetchEvents } = useContext(EventContext);
   const { events } = eventState;
-  const allEvents = [
-    {
-      id: "1",
-      name: "Tech Conference 2024",
-      date: "2024-12-31",
-      image: require("../../assets/events/event1.jpg"),
-      rsvpCount: 100,
-    },
-    {
-      id: "2",
-      name: "Music Festival",
-      date: "2024-11-15",
-      image: require("../../assets/events/event2.jpg"),
-      rsvpCount: 200,
-    },
-    {
-      id: "3",
-      name: "Art Exhibition",
-      date: "2024-10-10",
-      image: require("../../assets/events/event2.jpg"),
-      rsvpCount: 50,
-    },
-    {
-      id: "4",
-      name: "Startup Meetup",
-      date: "2024-09-01",
-      image: require("../../assets/events/event1.jpg"),
-      rsvpCount: 75,
-    },
-    {
-      id: "5",
-      name: "Charity Gala",
-      date: "2024-08-15",
-      image: require("../../assets/events/event2.jpg"),
-      rsvpCount: 120,
-    },
-  ];
 
-  const [visibleEvents, setVisibleEvents] = useState(allEvents.slice(0, 2));
+  const [visibleEvents, setVisibleEvents] = useState([]);
 
   const handleShowMore = () => {
     const currentLength = visibleEvents.length;
     const newLength = currentLength + 2;
-    const nextEvents = allEvents.slice(0, newLength);
+    const nextEvents = events.slice(0, newLength);
     setVisibleEvents(nextEvents);
   };
 
-  // useEffect(() => {
-  //   fetchEvents();
-  // }, []);
+  useEffect(() => {
+    fetchEvents();
+  }, []);
+
+  useEffect(() => {
+    console.log("Events fetched:", events);
+    setVisibleEvents(events.slice(0, 2));
+  }, [events]);
 
   return (
     <ScrollView>
@@ -66,17 +34,17 @@ const UploadedEvents = () => {
 
         {visibleEvents.length === 0 ? (
           <View className="text-gray-500 text-lg text-center">
-            No events uploaded yet.
+            <Text>No events uploaded yet.</Text>
           </View>
         ) : (
           <View className="flex flex-wrap justify-center gap-6">
             {visibleEvents.map((event) => (
-              <UploadCard key={event.id} {...event} />
+              <UploadCard key={event._id} {...event} />
             ))}
           </View>
         )}
 
-        {visibleEvents.length < allEvents.length && (
+        {visibleEvents.length < events.length && (
           <TouchableOpacity
             onPress={handleShowMore}
             className="bg-primaryPurple mt-6 mx-auto py-3 px-6 rounded-lg shadow-md"

@@ -21,8 +21,9 @@ const eventSchema = new mongoose.Schema(
     location: {
       type: String,
     },
-    rsvpCont: {
+    rsvpCount: {
       type: Number,
+      default: 0,
     },
     organizer: {
       type: String,

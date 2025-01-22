@@ -45,8 +45,10 @@ class UserController {
 
   GetEvents = async (req, res) => {
     const userId = req.id;
+    console.log("User ID", userId);
     try {
       const events = await this.userService.GetEvents(userId);
+      console.log("Events", events);
       res.status(200).json({ events });
     } catch (error) {
       res.status(400).json({ message: error.message });

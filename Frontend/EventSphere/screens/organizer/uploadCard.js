@@ -1,6 +1,20 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 
 const UploadCard = ({ id, name, date, image, rsvpCount }) => {
+  const formatDate = (dateString) => {
+    try {
+      const date = new Date(dateString);
+      return new Intl.DateTimeFormat("en-US", {
+        weekday: "short",
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      }).format(date);
+    } catch (error) {
+      console.error("Invalid date format:", dateString);
+      return dateString;
+    }
+  };
   return (
     <View key={id} className="bg-white shadow-lg rounded-xl p-4 flex flex-col">
       <Image
@@ -13,7 +27,9 @@ const UploadCard = ({ id, name, date, image, rsvpCount }) => {
         {name}
       </Text>
 
-      <Text className="text-gray-600 text-sm mb-1">📅 Date: {date}</Text>
+      <Text className="text-gray-600 text-sm mb-1">
+        📅 Date: {formatDate(date)}
+      </Text>
 
       <Text className="text-gray-600 text-sm mb-4">
         👥 RSVP Count: {rsvpCount}

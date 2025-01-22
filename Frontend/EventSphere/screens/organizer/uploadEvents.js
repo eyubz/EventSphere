@@ -34,12 +34,13 @@ const UploadEvents = () => {
 
   useEffect(() => {
     if (success) {
-      Alert.alert(message);
+      Alert.alert("Success", message);
       resetForm();
       resetEventState();
     }
     if (error) {
       Alert.alert("Error", error);
+      resetEventState();
     }
   }, [success, error, message, resetEventState]);
 

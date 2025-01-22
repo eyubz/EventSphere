@@ -1,9 +1,12 @@
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
+import { AuthContext } from "../../context/authContext";
+import { useContext } from "react";
 
 const Logout = () => {
+  const { logout } = useContext(AuthContext);
   const handleLogout = () => {
-    console.log("User logged out");
+    logout();
   };
 
   return (
