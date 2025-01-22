@@ -113,6 +113,7 @@ export const AuthProvider = ({ children }) => {
   const setProfile = async (data) => {
     setAuthState({ ...authState, loading: true, error: null });
     try {
+      console.log("The data", data);
       const response = await axios.post(`${API_URL}/user/profile`, data, {
         headers: {
           Authorization: `Bearer ${authState.accessToken}`,

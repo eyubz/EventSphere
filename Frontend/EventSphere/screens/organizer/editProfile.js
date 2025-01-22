@@ -2,9 +2,16 @@ import { View, Text, Image, TouchableOpacity, TextInput } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { launchImageLibrary } from "react-native-image-picker";
 
-const EditableFields = ({ profile, isEditing, setIsEditing, setProfile }) => {
+const EditableFields = ({
+  profile,
+  isEditing,
+  setIsEditing,
+  setProfile,
+  setProfileDetail,
+}) => {
+  console.log("Profile", profile);
   const handleChange = (field, value) => {
-    setProfile((prevProfile) => ({
+    setProfileDetail((prevProfile) => ({
       ...prevProfile,
       [field]: value,
     }));

@@ -3,16 +3,6 @@ class EventRepository {
     this.eventModel = eventModel;
   }
 
-  InsertEvent = async (event) => {
-    try {
-      const newEvent = new this.eventModel(event);
-      await newEvent.save();
-      return newEvent;
-    } catch (error) {
-      throw error;
-    }
-  };
-
   GetEvents = async (eventIds) => {
     try {
       const events = await this.eventModel.find(

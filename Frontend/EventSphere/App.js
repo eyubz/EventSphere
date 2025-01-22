@@ -124,10 +124,13 @@ function AppNavigator() {
             </>
           ) : (
             <>
-              <Drawer.Screen name="Home" component={HomeStack} />
+              <Drawer.Screen name="Event Sphere" component={HomeStack} />
               <Drawer.Screen name="Profile" component={Profile} />
-              <Drawer.Screen name="UploadEvents" component={UploadEvents} />
-              <Drawer.Screen name="UploadedEvents" component={UploadedEvents} />
+              <Drawer.Screen name="Upload Events" component={UploadEvents} />
+              <Drawer.Screen
+                name="Uploaded Events"
+                component={UploadedEvents}
+              />
               <Drawer.Screen name="Logout" component={Logout} />
             </>
           )}

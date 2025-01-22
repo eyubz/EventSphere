@@ -21,6 +21,7 @@ class UserService {
       throw new Error("user id required");
     }
     const { name, title, bio, location } = updatedUser;
+    console.log(updatedUser);
     try {
       const user = await this.userRepository.FindUserById(userId);
       const imgUrl = file ? `/uploads/${req.file.filename}` : user.image;
@@ -29,6 +30,7 @@ class UserService {
       user.title = title || user.title;
       user.bio = bio || user.bio;
       user.location = location || user.location;
+      console.log("user", user);
       const updateUser = await this.userRepository.UpdateUser(user);
       return updateUser;
     } catch (error) {
@@ -81,12 +83,13 @@ class UserService {
         : "https://via.placeholder.com/150";
       event.image = imgUrl;
 
-      const insertedEvent = this.eventRepository.InsertEvent(event);
+      const insertedEvent = await this.eventRepository.UploadEvent(event);
+
       const user = await this.userRepository.UpdateUserEvents(
         userId,
         insertedEvent._id
       );
-      return "Event created successfully";
+      return "Event created success fully";
     } catch (error) {
       throw error;
     }

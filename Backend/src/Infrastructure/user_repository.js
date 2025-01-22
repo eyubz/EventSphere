@@ -27,10 +27,19 @@ class UserRepository {
       throw error;
     }
   };
+
   UpdateUser = async (user) => {
     try {
       await user.save();
-      return "Profile updated successfully";
+      return {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        title: user.title,
+        bio: user.bio,
+        location: user.location,
+        image: user,
+      };
     } catch (error) {
       throw error;
     }

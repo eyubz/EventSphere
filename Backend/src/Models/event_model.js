@@ -4,36 +4,28 @@ const eventSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
       min: 3,
       max: 255,
     },
     description: {
       type: String,
-      required: true,
       min: 3,
       max: 255,
     },
     date: {
       type: Date,
-      required: true,
     },
     time: {
       type: String,
-      required: true,
     },
     location: {
       type: String,
-      required: true,
     },
     rsvpCont: {
       type: Number,
-      default: 0,
     },
     organizer: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
+      type: String,
     },
     image: {
       type: String,
@@ -41,15 +33,12 @@ const eventSchema = new mongoose.Schema(
     },
     maxAttendees: {
       type: Number,
-      required: true,
     },
-    price: {
+    ticketPrice: {
       type: Number,
-      required: true,
     },
     type: {
       type: String,
-      required: true,
     },
     attendees: [
       {

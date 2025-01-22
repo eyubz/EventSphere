@@ -57,6 +57,7 @@ class UserController {
     const userId = req.id;
     const event = req.body;
     const file = req.file;
+    console.log("Body", req.body);
     try {
       const message = await this.userService.UploadEvent(userId, event, file);
       res.status(200).json({ message });

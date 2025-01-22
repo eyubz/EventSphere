@@ -10,8 +10,8 @@ const EventRepository = require("../Infrastructure/event_repository");
 
 const eventRepository = new EventRepository(eventModel);
 const userRepository = new UserRepository(userModel);
-const userService = new UserService(userRepository);
-const userController = new UserController(userService, eventRepository);
+const userService = new UserService(userRepository, eventRepository);
+const userController = new UserController(userService);
 
 route.post("", upload.single("image"), userController.UploadEvent);
 route.get("", userController.GetEvents);
