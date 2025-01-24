@@ -43,10 +43,13 @@ A React Native application for managing events, including uploading events, RSVP
 
 ## Installation and Setup
 
+`bash
+
 1.  bashCopyEditgit clone https://github.com/your-repo-name.gitcd your-repo-name
 2.  bashCopyEditnpm install
 3.  bashCopyEditnpm start
 4.  bashCopyEditnpm run android # For Androidnpm run ios # For iOS (requires macOS)
+`
 
 ## How to Use
 
