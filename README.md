@@ -36,20 +36,36 @@ A React Native application for managing events, including uploading events, RSVP
 - **State Management**: Context API, Redux
 - **Styling**: TailwindCSS (React Native ClassNames)
 
-## Folder Structure
+## **Installation**
 
-`bashCopy
- Editsrc/  ├── components/  │   ├── UploadCard.js       # Component for displaying event cards  │   ├── Notification.js     # Notification screen with a bell icon  │  ├── screens/  │   ├── UploadedEvents.js   # Screen for viewing uploaded events  │   ├── RsvpEvents.js       # Screen for viewing RSVP'd events  │  ├── context/  │   ├── eventContext.js     # Event management state and actions  │  ├── assets/  │   └── events/             # Static assets for events (e.g., images)  │  └── App.js                  # Main entry point for the app`
+To get started with the project locally, follow these steps:
 
-## Installation and Setup
+1.  Clone the repository
 
-`bash
+- git clone https://github.com/eyubz/EventSphere
 
-1.  bashCopyEditgit clone https://github.com/your-repo-name.gitcd your-repo-name
-2.  bashCopyEditnpm install
-3.  bashCopyEditnpm start
-4.  bashCopyEditnpm run android # For Androidnpm run ios # For iOS (requires macOS)
-`
+2.  Navigate to the project directory:
+
+- cd EventSphere
+
+3.  Install the frontend dependencies
+
+- cd frontend
+- npm install
+
+4. Install the backend dependencies
+
+- cd backend
+- npm install
+
+5.  Set up your environment variables for the backend.
+    - Create a .env file in the backend directory. Include the following
+        - MongoDB credentials, JWT secret
+7.  Run the project
+8.  cd frontend/EventSphere
+9.  npm start
+10. cd backend/src
+11. npm start
 
 ## How to Use
 
@@ -75,7 +91,7 @@ A React Native application for managing events, including uploading events, RSVP
 
 ## Contributors
 
-- **Your Name** – Developer
+- **Eyerusalem Bezu** – Developer
 - Contributions and pull requests are welcome!
 
 ## License
